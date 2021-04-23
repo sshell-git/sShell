@@ -1,0 +1,132 @@
+﻿<Window x:Class="SShell.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SShell"
+        Icon="pack://application:,,,/assets/icon.png"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="SShell" Height="1440" Width="2560" WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize" ContentRendered="Window_ContentRendered" AllowsTransparency="True" Loaded="Window_Loaded" Background="{x:Null}" Topmost="True" Activated="Window_Activated" Visibility="Visible" Deactivated="Window_Deactivated" ShowInTaskbar="False" Closing="Window_Closing">
+    <Window.Resources>  
+
+    </Window.Resources>
+    <Grid>
+        <!--
+        Use this for the welcome box
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock FontSize="30" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">Welcome to SShell!</TextBlock>
+            <Button x:Name="btn" Content="Hello World!" Width="100"/>
+        </StackPanel>
+        -->
+        <DockPanel VerticalAlignment="Bottom" x:Name="tb">
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Height="40" x:Name="taskbar" VerticalAlignment="Bottom" Background="{StaticResource BGtranslucent}">
+                <!-- for accent color: Background="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}"-->
+                <Border PreviewMouseLeftButtonUp="ToggleMenu" Margin="0,0,7,0" Width="46" Style="{StaticResource TBitemPanelBdr}">
+                    <Image Source="pack://application:,,,/assets/icon-2x.png" Height="16" Width="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <!--<Border Margin="0,0,3,0" Width="46" Style="{StaticResource TBitemPanelBdr}">
+                    <iconPacks:PackIconMaterialDesign HorizontalAlignment="Center" Kind="Menu" Height="25" Width="25" Margin="2,0,2,0" VerticalAlignment="Center" Padding="5" Foreground="White" />
+                </Border>-->
+                <TextBlock HorizontalAlignment="Center" Name="dateText"/>
+            </StackPanel>
+            <Border x:Name="Menu" DockPanel.Dock="Left" HorizontalAlignment="Left" Padding="10,10,10,10" Margin="3,0,0,3" VerticalAlignment="Bottom" CornerRadius="3" Background="{StaticResource BGtranslucent}">
+                <DockPanel>
+                    
+                    <DockPanel Panel.ZIndex="0" LastChildFill="False" Margin="0,0,10,0" HorizontalAlignment="Center" DockPanel.Dock="Left">
+
+                        <StackPanel DockPanel.Dock="Bottom">
+                            <Border PreviewMouseLeftButtonUp="whdlrs_openSettings" Style="{StaticResource TBitemBdr}" CornerRadius="3" Padding="10" Margin="0,0,0,0">
+                                <iconPacks:PackIconMaterialDesign Style="{StaticResource TBsideIcon}" Foreground="{StaticResource FG}" Kind="Settings"/>
+                            </Border>
+                            <Border Style="{StaticResource TBitemBdr}" CornerRadius="3" Padding="10" Margin="0,0,0,0">
+                                <iconPacks:PackIconMaterialDesign Style="{StaticResource TBsideIcon}" Foreground="{StaticResource FG}" Kind="Folder"/>
+                            </Border>
+                            <Border Style="{StaticResource TBitemBdr}" CornerRadius="3" Padding="10" Margin="0,0,0,0">
+                                <iconPacks:PackIconMaterialDesign Style="{StaticResource TBsideIcon}" Foreground="{StaticResource FG}" Kind="PowerSettingsNew" />
+                            </Border>
+                        </StackPanel>
+                        <Border Style="{StaticResource TBitemBdr}" VerticalAlignment="Top" CornerRadius="3" Padding="10" Margin="0,0,0,0">
+                            <iconPacks:PackIconMaterialDesign Style="{StaticResource TBsideIcon}" Foreground="{StaticResource FG}" Kind="Menu" />
+                        </Border>
+                    </DockPanel>
+                    <ScrollViewer Height="300" Width="260" BorderBrush="{x:Null}" Background="{x:Null}">
+                        <StackPanel>
+                            <!-- Menu Apps -->
+                            <Border Style="{StaticResource TBitemPanelBdr}">
+                                <WrapPanel Style="{StaticResource TBitemPanel}">
+                                    <Image Style="{StaticResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png"  />
+                                    <TextBlock Style="{StaticResource TBitemText}" Text="Firefox" />
+                                </WrapPanel>
+                            </Border>
+                            <Border Style="{StaticResource TBitemPanelBdr}">
+                                <WrapPanel Style="{StaticResource TBitemPanel}">
+                                    <Image Style="{StaticResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png" />
+                                    <TextBlock Style="{StaticResource TBitemText}" Text="Firefox" />
+                                </WrapPanel>
+                            </Border>
+                            <Border Style="{StaticResource TBitemPanelBdr}">
+                                <WrapPanel Style="{StaticResource TBitemPanel}">
+                                    <Image Style="{StaticResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png" />
+                                    <TextBlock Style="{StaticResource TBitemText}"  Text="Firefox" />
+                                </WrapPanel>
+                            </Border>
+                            <Border Style="{StaticResource TBitemPanelBdr}">
+                                <WrapPanel Style="{StaticResource TBitemPanel}">
+                                    <Image Style="{StaticResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png" />
+                                    <TextBlock Style="{StaticResource TBitemText}"  Text="Firefox" />
+                                </WrapPanel>
+                            </Border>
+                            <Border Style="{StaticResource TBitemPanelBdr}">
+                                <WrapPanel Style="{StaticResource TBitemPanel}">
+                                    <Image Style="{StaticResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png" />
+                                    <TextBlock Style="{StaticResource TBitemText}"  Text="Firefox" />
+                                </WrapPanel>
+                            </Border>
+                            <Border Style="{StaticResource TBitemPanelBdr}">
+                                <WrapPanel Style="{StaticResource TBitemPanel}">
+                                    <Image Style="{StaticResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png" />
+                                    <TextBlock Style="{StaticResource TBitemText}"  Text="Firefox" />
+                                </WrapPanel>
+                            </Border>
+                            <Border Style="{StaticResource TBitemPanelBdr}">
+                                <WrapPanel Style="{StaticResource TBitemPanel}">
+                                    <Image Style="{StaticResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png" />
+                                    <TextBlock Style="{StaticResource TBitemText}"  Text="Firefox" />
+                                </WrapPanel>
+                            </Border>
+                            <Border Style="{StaticResource TBitemPanelBdr}">
+                                <WrapPanel Style="{StaticResource TBitemPanel}">
+                                    <Image Style="{StaticResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png" />
+                                    <TextBlock Style="{StaticResource TBitemText}"  Text="Firefox" />
+                                </WrapPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+            <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,0,3,3" VerticalAlignment="Bottom" Background="{StaticResource BGtranslucent}">
+                <Border Width="275" Background="{DynamicResource bgDanger}" Padding="20" CornerRadius="3">
+                    <DockPanel>
+                    <iconPacks:PackIconMaterialDesign VerticalAlignment="Center" Kind="Error" Foreground="White" Width="30" Height="30" HorizontalAlignment="Left" />
+                        <StackPanel Margin="10,0,0,0">
+                            <TextBlock Foreground="{DynamicResource FG}" HorizontalAlignment="Left" Text="Oh shet" FontSize="18" />
+                            <TextBlock Foreground="{DynamicResource FG}" HorizontalAlignment="Left" Text="Hello" FontSize="13" />
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+            </StackPanel>
+            <!--<Border x:Name="QuickActions" DockPanel.Dock="Right" HorizontalAlignment="Right" Padding="10" Margin="0,0,3,3" VerticalAlignment="Bottom" CornerRadius="3" Background="{StaticResource BGtranslucent}">
+                <DockPanel>
+                    <Slider Style="{DynamicResource SliderStyle1}" Padding="10,0,10,0" Margin="10,0,10,10" DockPanel.Dock="Top" Minimum="0" Maximum="100" />
+                    <Border Style="{StaticResource TBitemPanelBdr}" Padding="10">
+                        <iconPacks:PackIconMaterialDesign Kind="VolumeUp" Foreground="White" />
+                    </Border>
+                    <Border Style="{StaticResource TBitemPanelBdr}" Padding="10">
+                        <iconPacks:PackIconMaterialDesign Kind="VolumeUp" Foreground="White" />
+                    </Border>
+                </DockPanel>
+            </Border> -->
+        </DockPanel>
+    </Grid>
+</Window>

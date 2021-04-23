@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF> 
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="assets\icon-2x.png" />
+    <None Remove="assets\icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro.IconPacks.MaterialDesign" Version="4.8.0" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="assets\icon-2x.png" />
+    <Resource Include="assets\icon.png" />
+  </ItemGroup>
+
+</Project>
