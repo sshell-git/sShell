@@ -8,7 +8,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="SShell" Height="1440" Width="2560" WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize" ContentRendered="Window_ContentRendered" AllowsTransparency="True" Loaded="Window_Loaded" Background="{x:Null}" Topmost="True" Activated="Window_Activated" Visibility="Visible" Deactivated="Window_Deactivated" ShowInTaskbar="False" Closing="Window_Closing">
-    <Window.Resources>  
+    <Window.Resources>
 
     </Window.Resources>
     <Grid>
@@ -21,27 +21,37 @@
         -->
         <DockPanel VerticalAlignment="Bottom" x:Name="tb">
             <DockPanel DockPanel.Dock="Bottom" Height="40" x:Name="taskbar" VerticalAlignment="Bottom" Background="{DynamicResource BGtranslucent}">
+                <Border PreviewMouseLeftButtonUp="whdlrs_openQA" Padding="20,10,10,10" DockPanel.Dock="Right" Style="{DynamicResource TBitemPanelBdr}">
+                    <WrapPanel HorizontalAlignment="Center">
+                        <Canvas Panel.ZIndex="1" ClipToBounds="False">
+                            <iconPacks:PackIconMaterialDesign Kind="Notifications" Foreground="{DynamicResource FG}" Width="20" Height="27" Canvas.Left="-10" Canvas.Top="-2"/>
+                        </Canvas>
+                        <Border x:Name="NotifAmount" Panel.ZIndex="1" CornerRadius="100" Background="{DynamicResource bgDanger}" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Text="1" x:Name="NotifAmountText" FontSize="11" Foreground="{DynamicResource FG}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"  />
+                        </Border>
+                    </WrapPanel>
+                </Border>
                 <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,0,10,0" TextAlignment="Center" VerticalAlignment="Center" Name="dateText" Foreground="{DynamicResource FG}">
                     12:19:20 PM<LineBreak/>4/23/2021
                 </TextBlock>
                 <!-- for accent color: Background="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}"-->
-                <Border PreviewMouseLeftButtonUp="ToggleMenu" Margin="0,0,7,0" Width="46" Style="{DynamicResource TBitemPanelBdr}">
+                <Border HorizontalAlignment="Left" PreviewMouseLeftButtonUp="ToggleMenu" Margin="0,0,7,0" Width="46" Style="{DynamicResource TBitemPanelBdr}">
                     <Image Source="pack://application:,,,/assets/icon-2x.png" Height="16" Width="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
                 <!--<Border Margin="0,0,3,0" Width="46" Style="{DynamicResource TBitemPanelBdr}">
                     <iconPacks:PackIconMaterialDesign HorizontalAlignment="Center" Kind="Menu" Height="25" Width="25" Margin="2,0,2,0" VerticalAlignment="Center" Padding="5" Foreground="White" />
-                </Border>-->    
+                </Border>-->
             </DockPanel>
             <Border x:Name="Menu" DockPanel.Dock="Left" HorizontalAlignment="Left" Padding="10,10,10,10" Margin="3,0,0,3" VerticalAlignment="Bottom" CornerRadius="3" Background="{DynamicResource BGtranslucent}">
                 <DockPanel>
-                    
+
                     <DockPanel Panel.ZIndex="0" LastChildFill="False" Margin="0,0,10,0" HorizontalAlignment="Center" DockPanel.Dock="Left">
 
                         <StackPanel DockPanel.Dock="Bottom">
                             <Border PreviewMouseLeftButtonUp="whdlrs_openSettings" Style="{DynamicResource TBitemBdr}" CornerRadius="3" Padding="10" Margin="0,0,0,0">
                                 <iconPacks:PackIconMaterialDesign Style="{DynamicResource TBsideIcon}" Foreground="{DynamicResource FG}" Kind="Settings"/>
                             </Border>
-                            <Border Style="{DynamicResource TBitemBdr}" CornerRadius="3" Padding="10" Margin="0,0,0,0">
+                            <Border PreviewMouseLeftButtonUp="whdlrs_openExplorer" Style="{DynamicResource TBitemBdr}" CornerRadius="3" Padding="10" Margin="0,0,0,0">
                                 <iconPacks:PackIconMaterialDesign Style="{DynamicResource TBsideIcon}" Foreground="{DynamicResource FG}" Kind="Folder"/>
                             </Border>
                             <Border Style="{DynamicResource TBitemBdr}" CornerRadius="3" Padding="10" Margin="0,0,0,0">
@@ -52,9 +62,22 @@
                             <iconPacks:PackIconMaterialDesign Style="{DynamicResource TBsideIcon}" Foreground="{DynamicResource FG}" Kind="Menu" />
                         </Border>
                     </DockPanel>
-                    <ScrollViewer Height="300" Width="260" BorderBrush="{x:Null}" Background="{x:Null}">
-                        <StackPanel>
+                    <ScrollViewer Height="300" BorderBrush="{x:Null}" Background="{x:Null}">
+                        <StackPanel x:Name="MenuApps" Margin="0,0,3,0">
                             <!-- Menu Apps -->
+                            <Border CornerRadius="3" Background="{DynamicResource BGAlt}" Padding="5,12,5,12">
+                                <WrapPanel Style="{DynamicResource TBitemPanel}">
+                                    <iconPacks:PackIconMaterialDesign Foreground="{DynamicResource bgPrimary}" Kind="Info" Height="30" Width="30" />
+                                    <StackPanel Margin="5,0,0,0" VerticalAlignment="Center">
+                                        <TextBlock FontSize="12" Foreground="{DynamicResource FG}">
+                                                This menu shows your favorites.
+                                        </TextBlock>
+                                        <Border Style="{DynamicResource GenericButton}" HorizontalAlignment="Left" Margin="0,5,0,0">
+                                            <TextBlock HorizontalAlignment="Center" Text="Add a Favorite" Foreground="{DynamicResource FG}" />
+                                        </Border>
+                                    </StackPanel>
+                                </WrapPanel>
+                            </Border>
                             <Border Style="{DynamicResource TBitemPanelBdr}">
                                 <WrapPanel Style="{DynamicResource TBitemPanel}">
                                     <Image Style="{DynamicResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png"  />
@@ -107,20 +130,44 @@
                     </ScrollViewer>
                 </DockPanel>
             </Border>
-            <StackPanel x:Name="notifBox" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,0,3,3" VerticalAlignment="Bottom" Background="{x:Null}">
-                <!-- Notifications will go here -->
-            </StackPanel>
-            <!--<Border x:Name="QuickActions" DockPanel.Dock="Right" HorizontalAlignment="Right" Padding="10" Margin="0,0,3,3" VerticalAlignment="Bottom" CornerRadius="3" Background="{DynamicResource BGtranslucent}">
-                <DockPanel>
-                    <Slider Style="{DynamicResource SliderStyle1}" Padding="10,0,10,0" Margin="10,0,10,10" DockPanel.Dock="Top" Minimum="0" Maximum="100" />
-                    <Border Style="{DynamicResource TBitemPanelBdr}" Padding="10">
-                        <iconPacks:PackIconMaterialDesign Kind="VolumeUp" Foreground="White" />
-                    </Border>
-                    <Border Style="{DynamicResource TBitemPanelBdr}" Padding="10">
-                        <iconPacks:PackIconMaterialDesign Kind="VolumeUp" Foreground="White" />
-                    </Border>
-                </DockPanel>
-            </Border> -->
+            <DockPanel DockPanel.Dock="Right">
+                <Border DockPanel.Dock="Bottom" x:Name="QuickActions" HorizontalAlignment="Right" Padding="10" Margin="0,0,3,3" VerticalAlignment="Bottom" CornerRadius="3" Background="{DynamicResource BGtranslucent}">
+                    <ScrollViewer BorderBrush="{x:Null}" Background="{x:Null}">
+                        <DockPanel>
+                            <StackPanel DockPanel.Dock="Top" x:Name="qaStackParent">
+                                <!--<Border Style="{DynamicResource TBitemPanelBdr}" Margin="0,3,0,0" Width="275" Padding="20" CornerRadius="3">
+                                <DockPanel>
+                                    <iconPacks:PackIconMaterialDesign VerticalAlignment="Center" Kind="Notifications" Foreground="{DynamicResource bgPrimary}" Width="30" Height="30" HorizontalAlignment="Left" />
+                                    <StackPanel Margin="10,0,0,0">
+                                        <TextBlock Foreground="{DynamicResource FG}" HorizontalAlignment="Left" Text="Notification" FontSize="18" />
+                                        <TextBlock Foreground="{DynamicResource FG}" HorizontalAlignment="Left" Text="Hello" FontSize="13" />
+                                    </StackPanel>
+                                </DockPanel>
+                            </Border>-->
+                            </StackPanel>
+                            <Border Style="{DynamicResource TBitemPanelBdr}" Padding="10">
+                                <WrapPanel>
+                                    <iconPacks:PackIconMaterialDesign Kind="VolumeUp" Foreground="{DynamicResource FG}" />
+                                    <TextBlock Text="Sound is enabled" Margin="5,0,0,0" Foreground="{DynamicResource FG}" />
+                                </WrapPanel>
+                            </Border>
+                        </DockPanel>
+                    </ScrollViewer>
+                </Border>
+                <StackPanel DockPanel.Dock="Bottom" x:Name="notifBox" HorizontalAlignment="Right" Margin="0,0,3,3" VerticalAlignment="Bottom" Background="{x:Null}">
+                    <!-- Notifications will go here -->
+                    <!-- Default notification example — more in NotificationHandler.cs
+                    <Border HorizontalAlignment="Right" Style="{DynamicResource Notification}" Margin="0,3,0,0" Width="275" Background="{DynamicResource bgPrimary}" Padding="20" CornerRadius="3">
+                        <DockPanel>
+                            <iconPacks:PackIconMaterialDesign VerticalAlignment="Center" Kind="Notifications" Foreground="White" Width="30" Height="30" HorizontalAlignment="Left" />
+                            <StackPanel Margin="10,0,0,0">
+                                <TextBlock Foreground="{DynamicResource FG}" HorizontalAlignment="Left" Text="Notification" FontSize="18" />
+                                <TextBlock Foreground="{DynamicResource FG}" HorizontalAlignment="Left" Text="Hello" FontSize="13" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border> -->
+                </StackPanel>
+            </DockPanel>
         </DockPanel>
     </Grid>
 </Window>

@@ -41,11 +41,19 @@ namespace SShell
         Information = 3
     }
 
+    public enum NotificationButtons : byte
+    {
+        NoButtons = 0,
+        OneButton = 1,
+        TwoButtons = 2
+    }
+
     internal struct Notification
     {
         public NotificationType Type;
         public string Title;
         public string Description;
+        public NotificationButtons Buttons;
     }
 
     class NotificationHandler
@@ -59,6 +67,118 @@ namespace SShell
 
         public bool ShowNotification(Notification notif)
         {
+            // Check notification count and display it in the corner
+            int count = mw.notifBox.Children.Count + 1; // +1 because this is the notification we are adding 
+            if (count > 8)
+            {
+                mw.NotifAmountText.Text = "9+";
+                mw.NotifAmount.Visibility = Visibility.Visible;
+            }
+            else if (count == 0)
+            {
+
+                mw.NotifAmount.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                mw.NotifAmountText.Text = count.ToString();
+                mw.NotifAmount.Visibility = Visibility.Visible;
+            }
+
+            // Display the notification in the Quick Actions menu
+            Border qaNotif = new()
+            {
+                Style = mw.FindResource("TBitemPanelBdr") as Style,
+                Margin = new Thickness(0, 3, 0, 0),
+                Padding = new Thickness(20),
+                CornerRadius = new CornerRadius(3)
+            };
+            DockPanel qaPanel = new();
+            PackIconMaterialDesign qaIcon = new();
+            switch (notif.Type)
+            {
+                case NotificationType.Default:
+                    qaIcon = new()
+                    {
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Kind = PackIconMaterialDesignKind.Notifications,
+                        Foreground = mw.FindResource("bgPrimary") as System.Windows.Media.Brush,
+                        Width = 30,
+                        Height = 30,
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    };
+                    break;
+                case NotificationType.Error:
+                    qaIcon = new()
+                    {
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Kind = PackIconMaterialDesignKind.Error,
+                        Foreground = mw.FindResource("bgDanger") as System.Windows.Media.Brush,
+                        Width = 30,
+                        Height = 30,
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    };
+                    break;
+                case NotificationType.Warning:
+                    qaIcon = new()
+                    {
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Kind = PackIconMaterialDesignKind.Warning,
+                        Foreground = mw.FindResource("bgWarning") as System.Windows.Media.Brush,
+                        Width = 30,
+                        Height = 30,
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    };
+                    break;
+                case NotificationType.Information:
+                    qaIcon = new()
+                    {
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Kind = PackIconMaterialDesignKind.Warning,
+                        Foreground = mw.FindResource("bgInfo") as System.Windows.Media.Brush,
+                        Width = 30,
+                        Height = 30,
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    };
+                    break;
+            }
+            /*
+               <Border Style="{DynamicResource TBitemPanelBdr}" Margin="0,3,0,0" Width="275" Padding="20" CornerRadius="3">
+                   <DockPanel>
+                       <iconPacks:PackIconMaterialDesign 
+                       VerticalAlignment="Center" Kind="Notifications" Foreground="{DynamicResource bgPrimary}" Width="30" Height="30" HorizontalAlignment="Left" />
+                       <StackPanel Margin="10,0,0,0">
+                           <TextBlock Foreground="{DynamicResource FG}" HorizontalAlignment="Left" Text="Notification" FontSize="18" />
+                           <TextBlock Foreground="{DynamicResource FG}" HorizontalAlignment="Left" Text="Hello" FontSize="13" />
+                       </StackPanel>
+                   </DockPanel>
+               </Border>
+            */
+            StackPanel qaStack = new()
+            {
+                Margin = new Thickness(10, 0, 0, 0)
+            };
+            TextBlock qaTitle = new()
+            {
+                Foreground = mw.FindResource("FG") as System.Windows.Media.Brush,
+                Text = notif.Title,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                FontSize = 18
+            };
+            TextBlock qaDesc = new()
+            {
+                Foreground = mw.FindResource("FG") as System.Windows.Media.Brush,
+                Text = notif.Description,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                FontSize = 13
+            };
+            qaNotif.Child = qaPanel;
+            qaPanel.Children.Add(qaIcon);
+            qaStack.Children.Add(qaTitle);
+            qaStack.Children.Add(qaDesc);
+            qaPanel.Children.Add(qaStack);
+            mw.qaStackParent.Children.Add(qaNotif);
+            // Display the notification in the bottom right corner
             switch (notif.Type)
             {
                 case NotificationType.Default:
@@ -79,7 +199,10 @@ namespace SShell
                         Background = mw.FindResource("bgPrimary") as System.Windows.Media.Brush,
                         Padding = new Thickness(20),
                         CornerRadius = new CornerRadius(3),
-                        Style = mw.FindResource("Notification") as Style
+                        Style = mw.FindResource("Notification") as Style,
+                        HorizontalAlignment = HorizontalAlignment.Right,
+                        MinWidth = 400,
+                        MinHeight = 100
                     };
                     DockPanel Defpanel = new();
                     PackIconMaterialDesign Deficon = new()
@@ -123,7 +246,10 @@ namespace SShell
                         Background = mw.FindResource("bgDanger") as System.Windows.Media.Brush,
                         Padding = new Thickness(20),
                         CornerRadius = new CornerRadius(3),
-                        Style = mw.FindResource("Notification") as Style
+                        Style = mw.FindResource("Notification") as Style,
+                        HorizontalAlignment = HorizontalAlignment.Right,
+                        MinWidth = 400,
+                        MinHeight = 100
                     };
                     DockPanel Errpanel = new();
                     PackIconMaterialDesign Erricon = new()
@@ -137,7 +263,8 @@ namespace SShell
                     };
                     StackPanel Errsp = new()
                     {
-                        Margin = new Thickness(10, 0, 0, 0)
+                        Margin = new Thickness(10, 0, 0, 0),
+                        VerticalAlignment = VerticalAlignment.Center
                     };
                     TextBlock Errtitle = new()
                     {

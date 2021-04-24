@@ -4,12 +4,16 @@
 
     <!-- Color definitions: Use these for generic colors like hover, click, background color, text color, etc -->
     <Color  x:Key="clrBG">#00393939</Color>
+    <Color x:Key="clrBGAlt">#252525</Color>
+    <Color x:Key="clrBGAlt2">#303030</Color>
     <Color  x:Key="clrBGtranslucent">#ba393939</Color>
     <Color x:Key="clrText">#ffffff</Color>
     <Color x:Key="clrHover">#90606060</Color>
     <Color x:Key="clrHovertranslucent">#90606060</Color>
     <Color x:Key="clrHoverClick">#ba808080</Color>
     <SolidColorBrush x:Key="BG" Color="{StaticResource clrBG}" />
+    <SolidColorBrush x:Key="BGAlt" Color="{StaticResource clrBGAlt}" />
+    <SolidColorBrush x:Key="BGAlt2" Color="{StaticResource clrBGAlt2}" />
     <SolidColorBrush x:Key="BGtranslucent" Color="{StaticResource clrBGtranslucent}" />
     <SolidColorBrush x:Key="BGhover" Color="{StaticResource clrHovertranslucent}" />
     <SolidColorBrush x:Key="BGhoverClick" Color="{StaticResource clrHoverClick}" />
@@ -35,6 +39,11 @@
                         <Storyboard>
                             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                              From="0.0" To="1.0" Duration="0:0:0.2"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="0:0:2.25" BeginTime="00:00:7" />
+                            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:09.25" Value="{x:Static Visibility.Collapsed}"/>
+                            </ObjectAnimationUsingKeyFrames>
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>
@@ -56,33 +65,68 @@
     <Style TargetType="WrapPanel" x:Key="TBitemPanel">
         <!-- Currently unused as it was replaced by TBitemPanelBdr below -->
     </Style>
-    <Style TargetType="Border" x:Key="TBitemPanelBdr">
+    <Style TargetType="Border" x:Key="GenericButton">
         <Style.Triggers>
             <EventTrigger RoutedEvent="MouseEnter">
                 <BeginStoryboard>
                     <Storyboard >
-                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="{StaticResource clrHover}" From="{StaticResource clrBG}" Duration="0:0:0.05"/>
+                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="{StaticResource clrHover}" From="{StaticResource clrBGAlt2}" Duration="0:0:0"/>
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
             <EventTrigger RoutedEvent="PreviewMouseLeftButtonDown">
                 <BeginStoryboard>
                     <Storyboard >
-                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="{StaticResource clrHoverClick}" From="{StaticResource clrHover}" Duration="0:0:0.05"/>
+                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="{StaticResource clrHoverClick}" From="{StaticResource clrHover}" Duration="0:0:0"/>
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
             <EventTrigger RoutedEvent="PreviewMouseLeftButtonUp">
                 <BeginStoryboard>
                     <Storyboard >
-                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="{StaticResource clrHover}" From="{StaticResource clrHoverClick}" Duration="0:0:0.05"/>
+                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="{StaticResource clrHover}" From="{StaticResource clrHoverClick}" Duration="0:0:0"/>
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
             <EventTrigger RoutedEvent="MouseLeave">
                 <BeginStoryboard>
                     <Storyboard >
-                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="{StaticResource clrBG}" From="{StaticResource clrHover}" Duration="0:0:0.05"/>
+                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="{StaticResource clrBGAlt2}" From="{StaticResource clrHover}" Duration="0:0:0"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+        <Setter Property="Background" Value="{StaticResource BGAlt2}" />
+        <Setter Property="Padding" Value="5,8,5,8" />
+        <Setter Property="CornerRadius" Value="3" />
+    </Style>
+    <Style TargetType="Border" x:Key="TBitemPanelBdr">
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard >
+                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="{StaticResource clrHover}" From="{StaticResource clrBG}" Duration="0:0:0"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="PreviewMouseLeftButtonDown">
+                <BeginStoryboard>
+                    <Storyboard >
+                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="{StaticResource clrHoverClick}" From="{StaticResource clrHover}" Duration="0:0:0"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="PreviewMouseLeftButtonUp">
+                <BeginStoryboard>
+                    <Storyboard >
+                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="{StaticResource clrHover}" From="{StaticResource clrHoverClick}" Duration="0:0:0"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard >
+                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="{StaticResource clrBG}" From="{StaticResource clrHover}" Duration="0:0:0"/>
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
