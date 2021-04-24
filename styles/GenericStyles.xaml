@@ -25,6 +25,23 @@
     <SolidColorBrush x:Key="bgLight" Color="#C6CBCC" />
     <SolidColorBrush x:Key="bgDark" Color="#333637" />
     
+    <!-- Notification styles -->
+    <Style TargetType="FrameworkElement" x:Key="Notification">
+        <Setter Property="Visibility" Value="Visible"/>
+        <Style.Triggers>
+            <Trigger Property="Visibility" Value="Visible">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             From="0.0" To="1.0" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!-- Style definitions -->
     <Style TargetType="TextBlock" x:Key="TBitemText">
         <Setter Property="VerticalAlignment" Value="Center" />

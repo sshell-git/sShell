@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows;
@@ -106,11 +107,19 @@ namespace SShell
 
     public partial class MainWindow : Window
     {
+        private NotificationHandler notifHandler;
         public bool MenuOpen = false;
         public Process currproc;
         public MainWindow()
         {
             InitializeComponent();
+            // TODO: MAKE WINDOW WORK IN NOTIFICATION CLAS :((
+            notifHandler = new NotificationHandler();
+            notifHandler.setMW(this);
+            DispatcherTimer timer = new(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            {
+                this.dateText.Text = DateTime.Now.ToString("HH:mm:ss tt\nM/d/yyyy");
+            }, Dispatcher);
             Window w = new Window(); // Create helper window
             w.Top = -100; // Location of new window is outside of visible part of screen
             w.Left = -100;
@@ -122,7 +131,7 @@ namespace SShell
             w.Show(); // We need to show window before set is as owner to our main window
             this.Owner = w; // Okey, this will result to disappear icon for main window.
             w.Hide(); // Hide helper window just in case
-            MessageBox.Show("Welcome to SShell, a simple WPF shell created for fun.\nSome programs may ask for admin privledges.");
+            notifHandler.ShowNotification(new Notification() {Title = "Welcome!", Type = NotificationType.Default, Description = "Welcome to SShell, a simple WPF shell created for fun.\nSome programs may ask for admin privledges."});
         }
         private void Window_ContentRendered(object sender, EventArgs e)
         {
@@ -149,7 +158,8 @@ namespace SShell
                             Width = 46,
                             Style = this.FindResource("TBitemPanelBdr") as Style,
                             ToolTip = process.MainWindowTitle + "\n" + process.ProcessName,
-                            Tag = fullPath
+                            Tag = fullPath,
+                            HorizontalAlignment = HorizontalAlignment.Left
                         };
                         border.PreviewMouseLeftButtonUp += new MouseButtonEventHandler(FocusWin);
                         System.Windows.Controls.Image image = new()
@@ -164,33 +174,29 @@ namespace SShell
                         };
                         border.Child = image;
                         taskbar.Children.Add(border);
-                        //NotificationHandler.Notification notif = new()
-                        //{
-                        //    Title = "Hello World!",
-                        //    Description = "This is a test of the Notification Handler...",
-                        //    Icon = IconHandler.GetIcon(fullPath, false, false) as BitmapImage,
-                        //    Type = NotificationHandler.NotificationType.MessageBox
-                        //};
 #if DEBUG
                         /*  MessageBox.Show(string.Format("Filename: {3}\nProcess: {0} \nID: {1} \nWindow title: {2}", process.ProcessName, process.Id, process.MainWindowTitle, fullPath)); */
 #endif
                     }
                     catch (Exception error)
                     {
-                        Border border = new()
-                        {
-                            Margin = new Thickness(0, 0, 3, 0),
-                            Width = 46,
-                            Style = this.FindResource("TBitemPanelBdr") as Style,
-                            ToolTip = "Error"
-                        };
-                        PackIconMaterialDesign packIcon = new()
-                        {
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            Kind = PackIconMaterialDesignKind.Menu,
-
-                        };
-                        border.Child = packIcon;
+                        //Border border = new()
+                        //{
+                        //    Margin = new Thickness(0, 0, 3, 0),
+                        //    Width = 46,
+                        //    Style = this.FindResource("TBitemPanelBdr") as Style,
+                        //    ToolTip = "Error",
+                        //    HorizontalAlignment = HorizontalAlignment.Left
+                        //};
+                        //PackIconMaterialDesign packIcon = new()
+                        //{
+                        //    HorizontalAlignment = HorizontalAlignment.Center,
+                        //    Kind = PackIconMaterialDesignKind.Error,
+                        //    Foreground = FindResource("bgDanger") as System.Windows.Media.Brush,
+                        //    Height = 25,
+                        //    Width = 25
+                        //};
+                        //border.Child = packIcon;
                         //System.Windows.Controls.Image image = new()
                         //{
                         //    Source = new BitmapImage(new Uri(@"pack://application:,,,/assets/icon.png")),
@@ -202,9 +208,16 @@ namespace SShell
                         //    Stretch = Stretch.Uniform
                         //};
                         //border.Child = image;
-                        taskbar.Children.Add(border);
+                        //taskbar.Children.Add(border);
+                        Notification notif = new()
+                        {
+                            Title = "An error occured...",
+                            Description = string.Format("Failed to get program {0} because the following error occured:\n{1}", process.ProcessName, error.Message),
+                            Type = NotificationType.Error
+                        };
+                        notifHandler.ShowNotification(notif);
 #if DEBUG
-                        MessageBox.Show(string.Format("Failed to get program {0} because the following error occured:\n{1}", process.ProcessName, error.Message));
+                        // MessageBox.Show(string.Format("Failed to get program {0} because the following error occured:\n{1}", process.ProcessName, error.Message));
 #endif
                     }
                 }
