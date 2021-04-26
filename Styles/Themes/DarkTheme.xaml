@@ -1,0 +1,30 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Color definitions: Use these for generic colors like hover, click, background color, text color, etc -->
+    <FontFamily x:Key="CurrentFont" >pack://application:,,,/assets/Roboto/#Roboto</FontFamily>
+    <Color  x:Key="clrBG">#2E2E2E</Color>
+    <Color x:Key="clrBGAlt">#252525</Color>
+    <Color x:Key="clrBGAlt2">#3B3B3B</Color>
+    <Color  x:Key="clrBGtranslucent">#E6343434</Color>
+    <Color x:Key="clrText">#ffffff</Color>
+    <Color x:Key="clrHover">#90606060</Color>
+    <Color x:Key="clrHovertranslucent">#90606060</Color>
+    <Color x:Key="clrHoverClick">#ba808080</Color>
+    <SolidColorBrush x:Key="BG" Color="{DynamicResource clrBG}" />
+    <SolidColorBrush x:Key="BGAlt" Color="{DynamicResource clrBGAlt}" />
+    <SolidColorBrush x:Key="BGAlt2" Color="{DynamicResource clrBGAlt2}" />
+    <SolidColorBrush x:Key="BGtranslucent" Color="{DynamicResource clrBGtranslucent}" />
+    <SolidColorBrush x:Key="BGhover" Color="{DynamicResource clrHovertranslucent}" />
+    <SolidColorBrush x:Key="BGhoverClick" Color="{DynamicResource clrHoverClick}" />
+    <SolidColorBrush x:Key="FG" Color="{DynamicResource clrText}" />
+    <DynamicResource ResourceKey="clrBG" x:Key="ColorBG" />
+    <!-- Accent colors -->
+    <SolidColorBrush x:Key="bgPrimary" Color="#3791DD" />
+    <SolidColorBrush x:Key="bgSecondary" Color="#869395" />
+    <SolidColorBrush x:Key="bgWarning" Color="#DDC037" />
+    <SolidColorBrush x:Key="bgDanger" Color="#DD3737" />
+    <SolidColorBrush x:Key="bgSuccess" Color="#3FDD37" />
+    <SolidColorBrush x:Key="bgInfo" Color="#37C4DD" />
+    <SolidColorBrush x:Key="bgLight" Color="#C6CBCC" />
+    <SolidColorBrush x:Key="bgDark" Color="#333637" />
+</ResourceDictionary>
