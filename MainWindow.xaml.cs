@@ -161,7 +161,7 @@ namespace SShell
                         _ => "th",
                     };
                 }
-                this.dateText.Text = now.ToString("MMMM dd") + GetDaySuffix(now.Day) + " " + now.ToString("h:m tt");
+                this.dateText.Text = now.ToString("MMMM dd") + GetDaySuffix(now.Day) + " " + now.ToString("hh:mm tt");
             }, Dispatcher);
             #region Init
             Window w = new()
