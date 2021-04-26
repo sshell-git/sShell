@@ -7,15 +7,9 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary 
-                Source="pack://application:,,,/Styles/Themes/DarkTheme.xaml"/>
+                Source="pack://application:,,,/styles/GenericStyles.xaml"/>
                 <ResourceDictionary 
-                Source="pack://application:,,,/Styles/GenericStyles.xaml"/> 
-                <ResourceDictionary 
-                Source="pack://application:,,,/Styles/ScrollViewer.xaml"/>
-                <ResourceDictionary 
-                Source="pack://application:,,,/Styles/TreeView.xaml"/>
-                <ResourceDictionary 
-                Source="pack://application:,,,/Styles/ComboBox.xaml"/>
+                Source="pack://application:,,,/styles/ScrollViewer.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

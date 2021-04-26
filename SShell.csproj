@@ -5,38 +5,24 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
-    <ApplicationIcon>sshell.ico</ApplicationIcon>
-    <Version>0.0.0.25</Version>
-    <Product>SShell Beta</Product>
-    <Authors>Kat21</Authors>
-    <Copyright>2021 Kat21</Copyright>
-    <PackageIcon></PackageIcon>
-    <RepositoryUrl>https://github.com/datkat21/SShell</RepositoryUrl>
-    <RepositoryType>master</RepositoryType>
-    <PackageReleaseNotes>This is a BETA version of SShell.</PackageReleaseNotes>
-    <PackageTags>SShell, Beta, WPF</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\icon-2x.png" />
-    <None Remove="Assets\icon.png" />
-    <None Remove="Assets\Roboto\Roboto-Black.ttf" />
-    <None Remove="Assets\Roboto\Roboto-BlackItalic.ttf" />
-    <None Remove="Assets\Roboto\Roboto-Bold.ttf" />
-    <None Remove="Assets\Roboto\Roboto-BoldItalic.ttf" />
-    <None Remove="Assets\Roboto\Roboto-Italic.ttf" />
-    <None Remove="Assets\Roboto\Roboto-Light.ttf" />
-    <None Remove="Assets\Roboto\Roboto-LightItalic.ttf" />
-    <None Remove="Assets\Roboto\Roboto-Medium.ttf" />
-    <None Remove="Assets\Roboto\Roboto-MediumItalic.ttf" />
-    <None Remove="Assets\Roboto\Roboto-Regular.ttf" />
-    <None Remove="Assets\Roboto\Roboto-Thin.ttf" />
-    <None Remove="Assets\Roboto\Roboto-ThinItalic.ttf" />
+    <None Remove="assets\icon-2x.png" />
+    <None Remove="assets\icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <COMReference Include="{215d64d2-031c-33c7-96e3-61794cd1ee61}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>4</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>215d64d2-031c-33c7-96e3-61794cd1ee61</Guid>
+    </COMReference>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MahApps.Metro.IconPacks.MaterialDesign" Version="4.8.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
   </ItemGroup>
 
@@ -47,16 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\icon-2x.png" />
-    <Resource Include="Assets\icon.png" />
-    <Resource Include="Assets\Roboto\Roboto-Regular.ttf" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Styles\Themes\DarkTheme.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
+    <Resource Include="assets\icon-2x.png" />
+    <Resource Include="assets\icon.png" />
   </ItemGroup>
 
 </Project>

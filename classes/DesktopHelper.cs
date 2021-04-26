@@ -6,17 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SShell.Classes
+namespace SShell.classes
 {
     class DesktopHelper
     {
+        MainWindow mw;
+        public void SetMW(MainWindow win)
+        {
+            mw = win;
+        }
         public void ShowDesktop()
         {
             int index = 0;
             foreach (Screen screen in Screen.AllScreens)
             {
                 // System.Windows.MessageBox.Show(string.Format("Monitor {0}: {1} x {2}", index, screen.Bounds.X, screen.Bounds.Y));
-                Windows.Desktop win = new()
+                windows.Desktop win = new()
                 {
                     Left = screen.Bounds.X,
                     Top = screen.Bounds.Y,
@@ -24,7 +29,7 @@ namespace SShell.Classes
                     Height = screen.Bounds.Height
                 };
                 win.Show();
-                win.ContentRendered += new EventHandler(MainWindow.SendWpfWindowBack);
+                MainWindow.SendWpfWindowBack(win);
                 win.Tag = "desktopWin" + index;
                 index++;
             }
