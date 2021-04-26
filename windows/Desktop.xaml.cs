@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SShell.Windows
+namespace SShell.windows
 {
     /// <summary>
     /// Interaction logic for Desktop.xaml
@@ -37,9 +37,8 @@ namespace SShell.Windows
             {
                 ImageSource = new BitmapImage(new Uri(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Microsoft\Windows\Themes\TranscodedWallpaper"))
             };
-            brush.Stretch = Stretch.UniformToFill;
             desktopGrid.Background = brush;
-            // MainWindow.SendWpfWindowBack(this);
+            MainWindow.SendWpfWindowBack(this);
         }
     }
 }
