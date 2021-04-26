@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.IconPacks;
+﻿#region Using Statements
+using MahApps.Metro.IconPacks;
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -20,13 +21,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Automation;
 using System.Windows.Shapes;
-
+#endregion
 namespace SShell
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
+    #region Icon / hWnd
     public class IconHandler
     {
         public static ImageSource GetIcon(string path, bool smallIcon, bool isDirectory)
@@ -40,11 +42,10 @@ namespace SShell
             if (isDirectory)
                 attributes |= FILE_ATTRIBUTE_DIRECTORY;
 
-            SHFILEINFO shfi;
             if (0 != SHGetFileInfo(
                         path,
                         attributes,
-                        out shfi,
+                        out SHFILEINFO shfi,
                         (uint)Marshal.SizeOf(typeof(SHFILEINFO)),
                         flags))
             {
@@ -68,7 +69,7 @@ namespace SShell
             public string szTypeName;
         }
 
-        [DllImport("shell32")]
+        [DllImport("shell32", CharSet = CharSet.Unicode)]
         private static extern int SHGetFileInfo(string pszPath, uint dwFileAttributes, out SHFILEINFO psfi, uint cbFileInfo, uint flags);
 
         private const uint FILE_ATTRIBUTE_READONLY = 0x00000001;
@@ -105,9 +106,11 @@ namespace SShell
         private const uint SHGFI_USEFILEATTRIBUTES = 0x000000010;     // use passed dwFileAttribute
 
     }
+    #endregion
 
     public partial class MainWindow : Window
     {
+        #region more hWnd
         [DllImport("user32.dll")]
         static extern bool SetForegroundWindow(IntPtr hWnd);
 
@@ -123,57 +126,76 @@ namespace SShell
 
         const UInt32 SWP_NOSIZE = 0x0001;
         const UInt32 SWP_NOMOVE = 0x0002;
+        const UInt32 SWP_NOACTIVATE = 0x0010;
 
-        static readonly IntPtr HWND_BOTTOM = new IntPtr(1);
+        static readonly IntPtr HWND_BOTTOM = new(1);
+        #endregion
 
-        public static void SendWpfWindowBack(Window window)
+
+        public static void SendWpfWindowBack(object sender, EventArgs e)
         {
+            Window window = sender as Window;
             var hWnd = new WindowInteropHelper(window).Handle;
-            SetWindowPos(hWnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
+            SetWindowPos(hWnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
         }
-
-        private NotificationHandler notifHandler;
+        private readonly NotificationHandler notifHandler;
         public bool MenuOpen = false;
         public Process currproc;
         public MainWindow()
         {
             InitializeComponent();
-            string TimeFormat = "hh:mm:ss tt\nM/d/yyyy";
+
             notifHandler = new NotificationHandler();
             notifHandler.setMW(this);
             DispatcherTimer timer = new(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
-                this.dateText.Text = DateTime.Now.ToString(TimeFormat);
-            }, Dispatcher);
-            Window w = new Window(); // Create helper window
-            w.Top = -100; // Location of new window is outside of visible part of screen
-            w.Left = -100;
-            w.Width = 1; // size of window is enough small to avoid its appearance at the beginning
-            w.Height = 1;
+                var now = DateTime.Now;
 
-            w.WindowStyle = WindowStyle.ToolWindow; // Set window style as ToolWindow to avoid its icon in AltTab 
-            w.ShowInTaskbar = false;
+                static string GetDaySuffix(int day)
+                {
+                    return day switch
+                    {
+                        1 or 21 or 31 => "st",
+                        2 or 22 => "nd",
+                        3 or 23 => "rd",
+                        _ => "th",
+                    };
+                }
+                this.dateText.Text = now.ToString("MMMM dd") + GetDaySuffix(now.Day) + " " + now.ToString("h:m tt");
+            }, Dispatcher);
+            #region Init
+            Window w = new()
+            {
+                Top = -100, // Location of new window is outside of visible part of screen
+                Left = -100,
+                Width = 1, // size of window is enough small to avoid its appearance at the beginning
+                Height = 1,
+
+                WindowStyle = WindowStyle.ToolWindow, // Set window style as ToolWindow to avoid its icon in AltTab 
+                ShowInTaskbar = false
+            }; // Create helper window
             w.Show(); // We need to show window before set is as owner to our main window
             this.Owner = w; // Okay, this will result to disappear icon for main window.
             w.Hide(); // Hide helper window just in case
+            #endregion
             notifHandler.ShowNotification(new Notification() { Title = "Welcome!", Type = NotificationType.Default, Description = "Welcome to SShell, a simple WPF shell created for fun.\nSome programs may ask for admin privledges." });
         }
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            //  classes.DesktopHelper helper = new();
-            //  helper.SetMW(this);
-            //  helper.ShowDesktop();
-            //  foreach (Window win in Application.Current.Windows)
-            //  {
-            //      if (win.Tag != null)
-            //      {
-            //          notifHandler.ShowNotification(new Notification() { Title = "Found a window!", Description = win.Tag.ToString(), Type = NotificationType.Default });
-            //      } else
-            //      {
-            //          notifHandler.ShowNotification(new Notification() { Title = "Found a window!", Description = win.Title, Type = NotificationType.Default });
-            //      }
-            //      SendWpfWindowBack(win);
-            //  }
+            Classes.DesktopHelper helper = new();
+            helper.ShowDesktop();
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win.Tag != null)
+                {
+                    notifHandler.ShowNotification(new Notification() { Title = "Found a window!", Description = win.Tag.ToString(), Type = NotificationType.Default });
+                }
+                else
+                {
+                    notifHandler.ShowNotification(new Notification() { Title = "Found a window!", Description = win.Title, Type = NotificationType.Default });
+                }
+                // SendWpfWindowBack(win);
+            }
             // Below is causing a long delay, so it's commented out for now..
 
             //MenuApps.Children.Clear();
@@ -224,7 +246,7 @@ namespace SShell
                     if (element != null && process.MainWindowHandle != IntPtr.Zero)
                     {
                         /* Let's recreate the following XAML in C#:
-                        <Border Margin="0,0,3,0" Width="46" Style="{StaticResource TBitemPanelBdr}">
+                        <Border Margin="0,0,3,0" Width="46" Style="{DynamicResource TBitemPanelBdr}">
                             <iconPacks:PackIconMaterialDesign HorizontalAlignment="Center" Kind="Menu" Height="25" Width="25" Margin="2,0,2,0" VerticalAlignment="Center" Padding="5" Foreground="White" />
                         </Border>
                          */
@@ -238,7 +260,7 @@ namespace SShell
                                 Style = this.FindResource("TBitemPanelBdr") as Style,
                                 ToolTip = process.MainWindowTitle + "\n" + process.ProcessName,
                                 Tag = process.Id,
-                                HorizontalAlignment = HorizontalAlignment.Left
+                                HorizontalAlignment = HorizontalAlignment.Center
                             };
                             border.PreviewMouseLeftButtonUp += new MouseButtonEventHandler(FocusWin);
                             System.Windows.Controls.Image image = new()
@@ -252,7 +274,7 @@ namespace SShell
                                 Stretch = Stretch.Uniform
                             };
                             border.Child = image;
-                            taskbar.Children.Add(border);
+                            TaskbarIcons.Children.Add(border);
 
 #if DEBUG
                             /*  MessageBox.Show(string.Format("Filename: {3}\nProcess: {0} \nID: {1} \nWindow title: {2}", process.ProcessName, process.Id, process.MainWindowTitle, fullPath)); */
@@ -279,7 +301,7 @@ namespace SShell
                             //border.Child = packIcon;
                             //System.Windows.Controls.Image image = new()
                             //{
-                            //    Source = new BitmapImage(new Uri(@"pack://application:,,,/assets/icon.png")),
+                            //    Source = new BitmapImage(new Uri(@"pack://application:,,,/Assets/icon.png")),
                             //    VerticalAlignment = VerticalAlignment.Center,
                             //    HorizontalAlignment = HorizontalAlignment.Center,
                             //    Margin = new Thickness(0),
@@ -392,13 +414,15 @@ namespace SShell
         {
             Menu.Visibility = Visibility.Collapsed;
             MenuOpen = false;
+            Windows.SettingsWin settings = new();
+            settings.Show();
         }
 
         private void whdlrs_openExplorer(object sender, MouseButtonEventArgs e)
         {
             Menu.Visibility = Visibility.Collapsed;
             MenuOpen = false;
-            windows.Explorer explorer = new();
+            Windows.Explorer explorer = new();
             explorer.setMW(this);
             explorer.Show();
         }
@@ -440,13 +464,13 @@ namespace SShell
         public static void SetWindowExTransparent(IntPtr hwnd)
         {
             var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-            SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT);
+            _ = SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT);
         }
 
         public static void SetWindowExNotTransparent(IntPtr hwnd)
         {
             var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-            SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle & ~WS_EX_TRANSPARENT);
+            _ = SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle & ~WS_EX_TRANSPARENT);
         }
     }
 }

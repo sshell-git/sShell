@@ -4,43 +4,88 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SShell"
-        Icon="pack://application:,,,/assets/icon.png"
+        Icon="pack://application:,,,/Assets/icon.png"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:C="clr-namespace:SShell.Controls"
+         FontFamily="{DynamicResource CurrentFont}"
         mc:Ignorable="d"
         Title="SShell" Height="1440" Width="2560" WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize" ContentRendered="Window_ContentRendered" AllowsTransparency="True" Loaded="Window_Loaded" Background="{x:Null}" Topmost="True" Activated="Window_Activated" Visibility="Visible" Deactivated="Window_Deactivated" ShowInTaskbar="False" Closing="Window_Closing">
     <Window.Resources>
 
     </Window.Resources>
     <Grid>
-        <!--
-        Use this for the welcome box
-        <StackPanel VerticalAlignment="Center">
-            <TextBlock FontSize="30" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">Welcome to SShell!</TextBlock>
-            <Button x:Name="btn" Content="Hello World!" Width="100"/>
-        </StackPanel>
-        -->
+
         <DockPanel VerticalAlignment="Bottom" x:Name="tb">
-            <DockPanel DockPanel.Dock="Bottom" Height="40" x:Name="taskbar" VerticalAlignment="Bottom" Background="{DynamicResource BGtranslucent}">
-                <Border PreviewMouseLeftButtonUp="whdlrs_openQA" Padding="20,10,10,10" DockPanel.Dock="Right" Style="{DynamicResource TBitemPanelBdr}">
-                    <WrapPanel HorizontalAlignment="Center">
+            <DockPanel DockPanel.Dock="Bottom" Height="40" x:Name="taskbar" VerticalAlignment="Bottom" Background="{DynamicResource BGtranslucent}" LastChildFill="False">
+
+                <Border  PreviewMouseLeftButtonUp="whdlrs_openQA" Padding="18.5,10,18.5,10" DockPanel.Dock="Right" Style="{DynamicResource TBitemPanelBdr}">
+                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                        <iconPacks:PackIconMaterialDesign Kind="Notifications" Foreground="{DynamicResource FG}" Width="17" Height="17" HorizontalAlignment="Left"/>
+
                         <Canvas Panel.ZIndex="1" ClipToBounds="False">
-                            <iconPacks:PackIconMaterialDesign Kind="Notifications" Foreground="{DynamicResource FG}" Width="20" Height="27" Canvas.Left="-10" Canvas.Top="-2"/>
+                            <Border Canvas.Left="-10" x:Name="NotifAmount" Panel.ZIndex="1" CornerRadius="100" Background="{DynamicResource bgDanger}" Width="15" Height="15" Canvas.Top="-3">
+                                <TextBlock Text="1" x:Name="NotifAmountText" FontSize="11" Foreground="{DynamicResource FG}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"  />
+                            </Border>
                         </Canvas>
-                        <Border x:Name="NotifAmount" Panel.ZIndex="1" CornerRadius="100" Background="{DynamicResource bgDanger}" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock Text="1" x:Name="NotifAmountText" FontSize="11" Foreground="{DynamicResource FG}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"  />
-                        </Border>
-                    </WrapPanel>
+                    </DockPanel>
                 </Border>
-                <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,0,10,0" TextAlignment="Center" VerticalAlignment="Center" Name="dateText" Foreground="{DynamicResource FG}">
-                    12:19:20 PM<LineBreak/>4/23/2021
-                </TextBlock>
+                <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <WrapPanel VerticalAlignment="Center">
+                        <C:TaskbarSideButton IconKind="PhotoCamera"/>
+                        <!-- WIP Camera/Screenshot Tool -->
+                        <Canvas Visibility="Collapsed" Background="{x:Null}" ClipToBounds="False" VerticalAlignment="Top">
+                            <C:PopupMenu Canvas.Top="-263" Canvas.Right="-125" Canvas.Left="-175">
+                                <StackPanel>
+                                    <TextBlock Text="Camera" FontSize="15" Margin="0,0,0,10" />
+                                    <WrapPanel>
+
+                                        <TextBlock Margin="0,0,0,10" Text="Screenshot saved" FontSize="12" />
+                                    </WrapPanel>
+                                    <DockPanel>
+                                        
+                                        <Image Height="105.5" HorizontalAlignment="Left" Source="C:\Users\austi\Downloads\demo.png" />
+                                        <StackPanel DockPanel.Dock="Right" Margin="0,0,25,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                            <C:Button HorizontalAlignment="Center" Width="50">
+                                                <StackPanel HorizontalAlignment="Center">
+                                                    <iconPacks:PackIconMaterialDesign HorizontalAlignment="Center" VerticalAlignment="Center" Kind="Crop" />
+                                                <TextBlock TextAlignment="Center" Margin="0,5,0,0" Text="Crop" FontSize="12" />
+                                                </StackPanel>
+                                            </C:Button>
+                                        </StackPanel>
+                                    </DockPanel>
+                                    <TextBlock Margin="0,10,0,10" Text="April 25th 2021 — 5:24 PM" FontSize="8.5" />
+                                    <DockPanel LastChildFill="False">
+                                        <C:Button Width="140" DockPanel.Dock="Left">
+                                            <TextBlock Text="Save" TextAlignment="Center" />
+                                        </C:Button>
+                                        <C:Button Width="140" DockPanel.Dock="Right">
+                                            <TextBlock Text="Delete" TextAlignment="Center" />
+                                        </C:Button>
+                                    </DockPanel>
+                                </StackPanel>
+                            </C:PopupMenu>
+                        </Canvas>
+                        <C:TaskbarSideButton IconKind="Note"/>
+                        <C:TaskbarSideButton IconKind="Settings"/>
+                        <C:TaskbarSideButton IconKind="ChatBubble"/>
+                        <C:TaskbarSideButton IconKind="VolumeUp" />
+                        <C:TaskbarSideButton IconKind="Wifi" />
+                        <C:TaskbarSideButton IconKind="Power" />
+                    </WrapPanel>
+                    <Border Padding="18.5,0,18.5,0" Style="{DynamicResource TBitemPanelBdr}">
+                        <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center" Name="dateText" Foreground="{DynamicResource FG}">
+                    April 25th — 7:22 AM
+                        </TextBlock>
+                    </Border>
+                </StackPanel>
                 <!-- for accent color: Background="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}"-->
                 <Border HorizontalAlignment="Left" PreviewMouseLeftButtonUp="ToggleMenu" Margin="0,0,7,0" Width="46" Style="{DynamicResource TBitemPanelBdr}">
-                    <Image Source="pack://application:,,,/assets/icon-2x.png" Height="16" Width="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Image Source="pack://application:,,,/Assets/icon-2x.png" Height="16" Width="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
-                <!--<Border Margin="0,0,3,0" Width="46" Style="{DynamicResource TBitemPanelBdr}">
-                    <iconPacks:PackIconMaterialDesign HorizontalAlignment="Center" Kind="Menu" Height="25" Width="25" Margin="2,0,2,0" VerticalAlignment="Center" Padding="5" Foreground="White" />
-                </Border>-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" x:Name="TaskbarIcons">
+
+                </StackPanel>
             </DockPanel>
             <Border x:Name="Menu" DockPanel.Dock="Left" HorizontalAlignment="Left" Padding="10,10,10,10" Margin="3,0,0,3" VerticalAlignment="Bottom" CornerRadius="3" Background="{DynamicResource BGtranslucent}">
                 <DockPanel>
@@ -64,7 +109,8 @@
                     </DockPanel>
                     <ScrollViewer Height="300" BorderBrush="{x:Null}" Background="{x:Null}">
                         <StackPanel x:Name="MenuApps" Margin="0,0,3,0">
-                            <!-- Menu Apps -->
+                            <!-- #region Menu Apps -->
+
                             <Border CornerRadius="3" Background="{DynamicResource BGAlt}" Padding="5,12,5,12">
                                 <WrapPanel Style="{DynamicResource TBitemPanel}">
                                     <iconPacks:PackIconMaterialDesign Foreground="{DynamicResource bgPrimary}" Kind="Info" Height="30" Width="30" />
@@ -78,6 +124,7 @@
                                     </StackPanel>
                                 </WrapPanel>
                             </Border>
+
                             <Border Style="{DynamicResource TBitemPanelBdr}">
                                 <WrapPanel Style="{DynamicResource TBitemPanel}">
                                     <Image Style="{DynamicResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png"  />
@@ -126,11 +173,12 @@
                                     <TextBlock Style="{DynamicResource TBitemText}"  Text="Firefox" />
                                 </WrapPanel>
                             </Border>
+                            <!-- #endregion -->
                         </StackPanel>
                     </ScrollViewer>
                 </DockPanel>
             </Border>
-            <DockPanel DockPanel.Dock="Right">
+            <DockPanel Visibility="Collapsed" DockPanel.Dock="Right" HorizontalAlignment="Right">
                 <Border DockPanel.Dock="Bottom" x:Name="QuickActions" HorizontalAlignment="Right" Padding="10" Margin="0,0,3,3" VerticalAlignment="Bottom" CornerRadius="3" Background="{DynamicResource BGtranslucent}">
                     <ScrollViewer BorderBrush="{x:Null}" Background="{x:Null}">
                         <DockPanel>
@@ -145,7 +193,7 @@
                                 </DockPanel>
                             </Border>-->
                             </StackPanel>
-                            <Border Style="{DynamicResource TBitemPanelBdr}" Padding="10">
+                            <Border HorizontalAlignment="Center" Style="{DynamicResource TBitemPanelBdr}" Padding="10">
                                 <WrapPanel>
                                     <iconPacks:PackIconMaterialDesign Kind="VolumeUp" Foreground="{DynamicResource FG}" />
                                     <TextBlock Text="Sound is enabled" Margin="5,0,0,0" Foreground="{DynamicResource FG}" />
