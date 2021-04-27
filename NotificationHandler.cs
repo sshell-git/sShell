@@ -53,7 +53,7 @@ namespace SShell
         public NotificationType Type;
         public string Title;
         public string Description;
-        public NotificationButtons Buttons;
+        // public NotificationButtons Buttons;
     }
 
     class NotificationHandler

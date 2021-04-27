@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Threading;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows;
@@ -18,6 +19,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Windows.Automation;
 using System.Windows.Shapes;
@@ -131,7 +133,9 @@ namespace SShell
         static readonly IntPtr HWND_BOTTOM = new(1);
         #endregion
 
+        string DefaultLang = "en_US";
 
+        #region more useless things
         public static void SendWpfWindowBack(object sender, EventArgs e)
         {
             Window window = sender as Window;
@@ -141,10 +145,12 @@ namespace SShell
         private readonly NotificationHandler notifHandler;
         public bool MenuOpen = false;
         public Process currproc;
+        #endregion
+
         public MainWindow()
         {
             InitializeComponent();
-
+            DataContext = this;
             notifHandler = new NotificationHandler();
             notifHandler.setMW(this);
             DispatcherTimer timer = new(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
@@ -444,10 +450,29 @@ namespace SShell
             }
         }
 
+        // add async when uncommenting bottom
+        private void whdlrs_takeScreenshot(object sender, MouseButtonEventArgs e)
+        {
+            screenshotCapturePopup.Visibility = Visibility.Hidden;
+            Menu.Visibility = Visibility.Collapsed;
+            MenuOpen = false;
+            System.Drawing.Image capture = Classes.ScreenCapture.CaptureScreen();
+            screenshotCapturePopup.Visibility = Visibility.Visible;
+            screenshotCaptureImg.Source = Classes.MiscClasses.GetImageStream(capture);
+            screenshotCaptureDate.Text = DateTime.Now.ToString("hh:mm tt");
+            Clipboard.SetImage((BitmapSource)screenshotCaptureImg.Source);
+            // Temporarily disabled while i fix some stuff
+
+            // await Task.Delay(3000);
+            // screenshotCapturePopup.Visibility = Visibility.Collapsed;
+        }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Application.Current.Shutdown();
         }
+
+
     }
 
     public static class WindowsServices

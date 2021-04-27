@@ -42,7 +42,7 @@ namespace SShell.Controls
 
         private void Down(object sender, MouseButtonEventArgs e)
         {
-            Icon.Foreground = Application.Current.MainWindow.FindResource("bgPrimary") as Brush;
+            Icon.Foreground = Application.Current.MainWindow.FindResource("bgLight") as Brush;
         }
 
         private void Up(object sender, MouseButtonEventArgs e)

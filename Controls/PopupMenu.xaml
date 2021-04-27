@@ -10,7 +10,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel>
-            <Border Width="300" Padding="5,10,5,10" CornerRadius="3" Background="{DynamicResource BGtranslucent}">
+            <Border Padding="5,10,5,10" CornerRadius="3" Background="{DynamicResource BGtranslucent}">
                 <StackPanel>
                     <ContentPresenter Content="{Binding AdditionalContent, ElementName=PopupControl}" />
                 </StackPanel>

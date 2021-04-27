@@ -32,19 +32,19 @@
                 <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Orientation="Horizontal">
 
                     <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Right">
-                        <C:TaskbarSideButton IconKind="PhotoCamera"/>
+                        <C:TaskbarSideButton MouseLeftButtonUp="whdlrs_takeScreenshot" IconKind="PhotoCamera"/>
                         <!-- WIP Camera/Screenshot Tool -->
-                        <Canvas Visibility="Visible" Background="{x:Null}" ClipToBounds="False" VerticalAlignment="Top">
-                            <C:PopupMenu Canvas.Top="-263" Canvas.Right="-125" Canvas.Left="-175">
+                        <Canvas Background="{x:Null}" ClipToBounds="False" VerticalAlignment="Top">
+                            <C:BetterPopupMenu Visibility="Collapsed"
+                                               Width="300" x:Name="screenshotCapturePopup" Canvas.Top="-263" Canvas.Right="-125" Canvas.Left="-175">
                                 <StackPanel Margin="4,0,4,0">
                                     <TextBlock Text="Camera" FontSize="15" Margin="0,0,0,10" />
                                     <WrapPanel>
                                         <iconPacks:PackIconMaterialDesign Height="17" Width="17" Kind="Check" Margin="0,0,5,0" />
-                                        <TextBlock VerticalAlignment="Center" Margin="0,2,0,10" Text="Screenshot saved" FontSize="12" />
+                                        <TextBlock VerticalAlignment="Center" Margin="0,2,0,10" Text="Screenshot copied to your clipboard" FontSize="12" />
                                     </WrapPanel>
                                     <DockPanel>
-
-                                        <Image Height="105.5" HorizontalAlignment="Left" Source="C:\Users\austi\Downloads\demo.png" />
+                                        <Image Height="105.5" HorizontalAlignment="Left" x:Name="screenshotCaptureImg" />
                                         <StackPanel DockPanel.Dock="Right" Margin="0,0,25,0" HorizontalAlignment="Right" VerticalAlignment="Center">
                                             <C:Button HorizontalAlignment="Center" Width="50">
                                                 <StackPanel HorizontalAlignment="Center">
@@ -54,17 +54,17 @@
                                             </C:Button>
                                         </StackPanel>
                                     </DockPanel>
-                                    <TextBlock Margin="0,10,0,10" Text="Taken at 4/26/2021 5:24 PM" FontSize="8.5" />
+                                    <TextBlock x:Name="screenshotCaptureDate" Margin="0,10,0,10" Text="Taken at (date)" FontSize="8.5" />
                                     <DockPanel LastChildFill="False">
-                                        <C:Button Width="140" DockPanel.Dock="Left">
+                                        <C:Button Width="135" DockPanel.Dock="Left">
                                             <TextBlock Text="Save" TextAlignment="Center" />
                                         </C:Button>
-                                        <C:Button Width="140" DockPanel.Dock="Right">
+                                        <C:Button Width="135" DockPanel.Dock="Right">
                                             <TextBlock Text="Delete" TextAlignment="Center" />
                                         </C:Button>
                                     </DockPanel>
                                 </StackPanel>
-                            </C:PopupMenu>
+                            </C:BetterPopupMenu>
                         </Canvas>
                         <C:TaskbarSideButton IconKind="Note"/>
                         <C:TaskbarSideButton IconKind="Settings"/>
@@ -75,7 +75,7 @@
                     </WrapPanel>
                     <Border Padding="18.5,0,70,0" Style="{DynamicResource TBitemPanelBdr}">
                         <TextBlock Margin="0,0,0,0" DockPanel.Dock="Right" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center" Name="dateText" Foreground="{DynamicResource FG}">
-                    April 25th — 7:22 AM
+                            April 25th — 7:22 AM
                         </TextBlock>
                     </Border>
                 </StackPanel>
@@ -86,7 +86,7 @@
 
                 <WrapPanel HorizontalAlignment="Center" x:Name="TaskbarIcons">
                     <!-- Icons here will be added dynamically when the application runs. -->
-                    
+
                     <!--<Canvas>
                         <Canvas ClipToBounds="False" HorizontalAlignment="Center">
                             <Border Margin="0,0,0,0" Canvas.Left="-23" Width="46" Style="{DynamicResource TBitemPanelBdr}">
