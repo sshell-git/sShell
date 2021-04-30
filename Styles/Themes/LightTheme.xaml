@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!-- Color definitions: Use these for generic colors like hover, click, background color, text color, etc -->
+    <FontFamily x:Key="CurrentFont" >pack://application:,,,/assets/Roboto/#Roboto</FontFamily>  
     <Color  x:Key="clrBG">#adadad</Color>
     <Color x:Key="clrBGAlt">#dadada</Color>
     <Color x:Key="clrBGAlt2">#bcbcbc</Color>

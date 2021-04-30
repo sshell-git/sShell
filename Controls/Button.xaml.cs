@@ -48,7 +48,53 @@ namespace SShell.Controls
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.Register("CornerRadius", typeof(Thickness), typeof(Button), new PropertyMetadata(new Thickness(300)));
 
-
-
+        private void Enter (object sender, MouseEventArgs e)
+        {
+            // To="{DynamicResource clrHover}" From="{DynamicResource clrBGAlt2}" 
+            BorderBtn.Background = Application.Current.MainWindow.FindResource("BGhover") as Brush;
+        }
+        private void Leave (object sender, MouseEventArgs e)
+        {
+            // To="{DynamicResource clrHoverClick}" From="{DynamicResource clrHover}" 
+            BorderBtn.Background = Application.Current.MainWindow.FindResource("BGAlt2") as Brush;
+        }
+        private void LeftDown (object sender, MouseButtonEventArgs e)
+        {
+            // To="{DynamicResource clrHoverClick}" From="{DynamicResource clrHover}"
+            BorderBtn.Background = Application.Current.MainWindow.FindResource("BGhoverClick") as Brush;
+        }
+        private void LeftUp (object sender, MouseButtonEventArgs e)
+        {
+            // To="{DynamicResource clrHover}" From="{DynamicResource clrHoverClick}" 
+            BorderBtn.Background = Application.Current.MainWindow.FindResource("BGhover") as Brush;
+        }
+           //<EventTrigger RoutedEvent = "MouseEnter" >
+           //     < BeginStoryboard >
+           //         < Storyboard >
+           //             < ColorAnimation Storyboard.TargetProperty="Background.Color" To="{DynamicResource clrHover}" From="{DynamicResource clrBGAlt2}" Duration="0:0:0"/>
+           //         </Storyboard>
+           //     </BeginStoryboard>
+           // </EventTrigger>
+           // <EventTrigger RoutedEvent = "PreviewMouseLeftButtonDown" >
+           //     < BeginStoryboard >
+           //         < Storyboard >
+           //             < ColorAnimation Storyboard.TargetProperty="Background.Color" To="{DynamicResource clrHoverClick}" From="{DynamicResource clrHover}" Duration="0:0:0"/>
+           //         </Storyboard>
+           //     </BeginStoryboard>
+           // </EventTrigger>
+           // <EventTrigger RoutedEvent = "PreviewMouseLeftButtonUp" >
+           //     < BeginStoryboard >
+           //         < Storyboard >
+           //             < ColorAnimation Storyboard.TargetProperty="Background.Color" To="{DynamicResource clrHover}" From="{DynamicResource clrHoverClick}" Duration="0:0:0"/>
+           //         </Storyboard>
+           //     </BeginStoryboard>
+           // </EventTrigger>
+           // <EventTrigger RoutedEvent = "MouseLeave" >
+           //     < BeginStoryboard >
+           //         < Storyboard >
+           //             < ColorAnimation Storyboard.TargetProperty="Background.Color" To="{DynamicResource clrBGAlt2}" From="{DynamicResource clrHover}" Duration="0:0:0"/>
+           //         </Storyboard>
+           //     </BeginStoryboard>
+           // </EventTrigger>
     }
 }

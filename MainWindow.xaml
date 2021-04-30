@@ -17,25 +17,14 @@
 
         <DockPanel VerticalAlignment="Bottom" x:Name="tb">
             <Grid DockPanel.Dock="Bottom" Height="40" x:Name="taskbar" VerticalAlignment="Bottom" Background="{DynamicResource BGtranslucent}">
-                <Border Panel.ZIndex="30" HorizontalAlignment="Right" PreviewMouseLeftButtonUp="whdlrs_openQA" Padding="18.5,10,18.5,10" DockPanel.Dock="Right" Style="{DynamicResource TBitemPanelBdr}">
-                    <DockPanel HorizontalAlignment="Right" VerticalAlignment="Center">
 
-                        <iconPacks:PackIconMaterialDesign Kind="Notifications" Foreground="{DynamicResource FG}" Width="17" Height="17" HorizontalAlignment="Left"/>
-
-                        <Canvas Panel.ZIndex="1" ClipToBounds="False">
-                            <Border Canvas.Left="-10" x:Name="NotifAmount" Panel.ZIndex="1" CornerRadius="100" Background="{DynamicResource bgDanger}" Width="15" Height="15" Canvas.Top="-3">
-                                <TextBlock Text="1" x:Name="NotifAmountText" FontSize="11" Foreground="{DynamicResource FG}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"  />
-                            </Border>
-                        </Canvas>
-                    </DockPanel>
-                </Border>
                 <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Orientation="Horizontal">
 
                     <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Right">
-                        <C:TaskbarSideButton MouseLeftButtonUp="whdlrs_takeScreenshot" IconKind="PhotoCamera"/>
+                        <C:TaskbarSideButton MouseLeftButtonUp="whdlrs_takeScreenshot" IconKind="PhotoCamera" />
                         <!-- WIP Camera/Screenshot Tool -->
                         <Canvas Background="{x:Null}" ClipToBounds="False" VerticalAlignment="Top">
-                            <C:BetterPopupMenu Visibility="Collapsed"
+                            <C:BetterPopupMenu ArrowAlignment="Center" Visibility="Collapsed"
                                                Width="300" x:Name="screenshotCapturePopup" Canvas.Top="-263" Canvas.Right="-125" Canvas.Left="-175">
                                 <StackPanel Margin="4,0,4,0">
                                     <TextBlock Text="Camera" FontSize="15" Margin="0,0,0,10" />
@@ -73,10 +62,33 @@
                         <C:TaskbarSideButton IconKind="Wifi" />
                         <C:TaskbarSideButton IconKind="Power" />
                     </WrapPanel>
-                    <Border Padding="18.5,0,70,0" Style="{DynamicResource TBitemPanelBdr}">
+                    <Border Padding="18.5,0,18.5,0" Style="{DynamicResource TBitemPanelBdr}">
                         <TextBlock Margin="0,0,0,0" DockPanel.Dock="Right" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center" Name="dateText" Foreground="{DynamicResource FG}">
                             April 25th — 7:22 AM
                         </TextBlock>
+                    </Border>
+                    <Canvas ClipToBounds="False" Visibility="Collapsed" Background="{DynamicResource BGAlt2}" Width="1">
+                        <C:BetterPopupMenu ArrowMargin="0,0,-26,0" ArrowAlignment="Right" DockPanel.Dock="Bottom" Padding="10" Margin="0,0,3,3" Background="{DynamicResource BGtranslucent}" Canvas.Left="-315" Canvas.Top="-342">
+                            <StackPanel>
+                                <TextBlock Margin="0,0,0,3" Text="April 25, 2021" FontSize="20" />
+                                <Calendar Padding="10" SelectionMode="SingleRange"  BorderBrush="{x:Null}" Style="{DynamicResource CalendarStyle1}">
+
+                                </Calendar>
+                            </StackPanel>
+                        </C:BetterPopupMenu>
+                    </Canvas>
+
+                    <Border Panel.ZIndex="30" HorizontalAlignment="Right" PreviewMouseLeftButtonUp="whdlrs_openQA" Padding="18.5,10,18.5,10" DockPanel.Dock="Right" Style="{DynamicResource TBitemPanelBdr}">
+                        <DockPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+
+                            <iconPacks:PackIconMaterialDesign Kind="Notifications" Foreground="{DynamicResource FG}" Width="17" Height="17" HorizontalAlignment="Left"/>
+
+                            <Canvas Panel.ZIndex="1" ClipToBounds="False">
+                                <Border Canvas.Left="-10" x:Name="NotifAmount" Panel.ZIndex="1" CornerRadius="100" Background="{DynamicResource bgDanger}" Width="15" Height="15" Canvas.Top="-3">
+                                    <TextBlock Text="1" x:Name="NotifAmountText" FontSize="11" Foreground="{DynamicResource FG}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"  />
+                                </Border>
+                            </Canvas>
+                        </DockPanel>
                     </Border>
                 </StackPanel>
                 <!-- for accent color: Background="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}"-->
@@ -195,12 +207,13 @@
                     </ScrollViewer>
                 </DockPanel>
             </Border>
-            <DockPanel Visibility="Collapsed" DockPanel.Dock="Right" HorizontalAlignment="Right">
-                <Border DockPanel.Dock="Bottom" x:Name="QuickActions" HorizontalAlignment="Right" Padding="10" Margin="0,0,3,3" VerticalAlignment="Bottom" CornerRadius="3" Background="{DynamicResource BGtranslucent}">
-                    <ScrollViewer BorderBrush="{x:Null}" Background="{x:Null}">
-                        <DockPanel>
-                            <StackPanel DockPanel.Dock="Top" x:Name="qaStackParent">
-                                <!--<Border Style="{DynamicResource TBitemPanelBdr}" Margin="0,3,0,0" Width="275" Padding="20" CornerRadius="3">
+            <DockPanel Visibility="Visible" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                <C:BetterPopupMenu Visibility="Visible" ArrowMargin="0,0,-26,0" ArrowAlignment="Right" DockPanel.Dock="Bottom" x:Name="QuickActions" Padding="10" Margin="0,0,3,3" Background="{DynamicResource BGtranslucent}">
+                    <StackPanel>
+                        <ScrollViewer BorderBrush="{x:Null}" Background="{x:Null}">
+                            <DockPanel HorizontalAlignment="Stretch">
+                                <StackPanel DockPanel.Dock="Top" x:Name="qaStackParent">
+                                    <!--<Border Style="{DynamicResource TBitemPanelBdr}" Margin="0,3,0,0" Width="275" Padding="20" CornerRadius="3">
                                 <DockPanel>
                                     <iconPacks:PackIconMaterialDesign VerticalAlignment="Center" Kind="Notifications" Foreground="{DynamicResource bgPrimary}" Width="30" Height="30" HorizontalAlignment="Left" />
                                     <StackPanel Margin="10,0,0,0">
@@ -209,16 +222,14 @@
                                     </StackPanel>
                                 </DockPanel>
                             </Border>-->
-                            </StackPanel>
-                            <Border HorizontalAlignment="Center" Style="{DynamicResource TBitemPanelBdr}" Padding="10">
-                                <WrapPanel>
-                                    <iconPacks:PackIconMaterialDesign Kind="VolumeUp" Foreground="{DynamicResource FG}" />
-                                    <TextBlock Text="Sound is enabled" Margin="5,0,0,0" Foreground="{DynamicResource FG}" />
-                                </WrapPanel>
-                            </Border>
-                        </DockPanel>
-                    </ScrollViewer>
-                </Border>
+                                </StackPanel>
+                            </DockPanel>
+                        </ScrollViewer>
+                        <C:Button MouseLeftButtonUp="whdlrs_QAclearNotifs">
+                            <TextBlock HorizontalAlignment="Center" Text="Clear notifications" />
+                        </C:Button>
+                    </StackPanel>
+                </C:BetterPopupMenu>
                 <StackPanel DockPanel.Dock="Bottom" x:Name="notifBox" HorizontalAlignment="Right" Margin="0,0,3,3" VerticalAlignment="Bottom" Background="{x:Null}">
                     <!-- Notifications will go here -->
                     <!-- Default notification example — more in NotificationHandler.cs

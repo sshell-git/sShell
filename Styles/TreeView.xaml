@@ -21,7 +21,7 @@
                     <Condition Property="IsSelected" Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Background" Value="{DynamicResource BGhoverClick}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource clrHover}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource BGhover}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -61,7 +61,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style TargetType="{x:Type ListViewItem}" BasedOn="{DynamicResource {x:Type ListBoxItem}}" />
+    <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}" />
     <Style TargetType="{x:Type ComboBoxItem}">
         <Setter Property="Template">
             <Setter.Value>

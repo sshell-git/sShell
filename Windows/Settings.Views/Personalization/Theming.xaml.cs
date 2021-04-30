@@ -37,7 +37,7 @@ namespace SShell.Windows.Settings.Views.Misc
             {
                 ComboBox cb = sender as ComboBox;
                 ComboBoxItem cbi = cb.SelectedItem as ComboBoxItem;
-                Application.Current.Resources.MergedDictionaries[1].Source = new Uri(string.Format("pack://application:,,,/Styles/Themes/{0}.xaml", cbi.Tag), UriKind.RelativeOrAbsolute);
+                Application.Current.Resources.MergedDictionaries[0].Source = new Uri(string.Format("pack://application:,,,/Styles/Themes/{0}.xaml", cbi.Tag), UriKind.RelativeOrAbsolute);
             }
             catch (Exception error)
             {

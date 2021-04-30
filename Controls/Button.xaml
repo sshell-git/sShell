@@ -6,9 +6,13 @@
              xmlns:local="clr-namespace:SShell.Controls"
              Name="ButtonControl"
              mc:Ignorable="d"
-             d:DesignHeight="50" d:DesignWidth="100" Foreground="{DynamicResource FG}">
+             d:DesignHeight="50" d:DesignWidth="100" Foreground="{DynamicResource FG}"
+             MouseEnter="Enter"
+             MouseLeave="Leave"
+             MouseLeftButtonDown="LeftDown"
+             MouseLeftButtonUp="LeftUp">
     <Grid>
-        <Border CornerRadius="3" Style="{DynamicResource GenericButton}">
+        <Border CornerRadius="3" Style="{DynamicResource GenericButton}" x:Name="BorderBtn">
             <ContentPresenter Content="{Binding AdditionalContent, ElementName=ButtonControl}" />
         </Border>
     </Grid>

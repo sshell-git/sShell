@@ -48,6 +48,7 @@ namespace SShell.Controls
     [ContentProperty("TheContent")]
     public class BetterPopupMenu : Control
     {
+        #region properties
         public static readonly DependencyProperty TheContentProperty = DependencyProperty.Register("TheContent", typeof(object), typeof(BetterPopupMenu), new PropertyMetadata(null));
         public object TheContent
         {
@@ -55,6 +56,31 @@ namespace SShell.Controls
             set { SetValue(TheContentProperty, value); }
         }
 
+        
+        public HorizontalAlignment ArrowAlignment
+        {
+            get { return (HorizontalAlignment)GetValue(ArrowAlignmentProperty); }
+            set { SetValue(ArrowAlignmentProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ArrowAlignment.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ArrowAlignmentProperty =
+            DependencyProperty.Register("ArrowAlignment", typeof(HorizontalAlignment), typeof(BetterPopupMenu), new PropertyMetadata(HorizontalAlignment.Center));
+
+
+
+        public Thickness ArrowMargin
+        {
+            get { return (Thickness)GetValue(ArrowMarginProperty); }
+            set { SetValue(ArrowMarginProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ArrowMargin.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ArrowMarginProperty =
+            DependencyProperty.Register("ArrowMargin", typeof(Thickness), typeof(BetterPopupMenu), new PropertyMetadata(new Thickness(0)));
+
+
+        #endregion
         static BetterPopupMenu()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BetterPopupMenu), new FrameworkPropertyMetadata(typeof(BetterPopupMenu)));
@@ -67,6 +93,10 @@ namespace SShell.Controls
             //Apply bindings and events
             ContentPresenter TheContentContent = GetTemplateChild("TheContentContent") as ContentPresenter;
             TheContentContent.SetBinding(ContentPresenter.ContentProperty, new Binding("TheContent") { Source = this });
+
+            Viewbox TheViewBox = GetTemplateChild("TheViewBox") as Viewbox;
+            TheViewBox.SetBinding(HorizontalAlignmentProperty, new Binding("ArrowAlignment") { Source = this });
+            TheViewBox.SetBinding(MarginProperty, new Binding("ArrowMargin") { Source = this });
         }
     }
 }

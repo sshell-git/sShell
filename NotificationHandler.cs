@@ -48,7 +48,7 @@ namespace SShell
         TwoButtons = 2
     }
 
-    internal struct Notification
+    public struct Notification
     {
         public NotificationType Type;
         public string Title;
@@ -56,7 +56,7 @@ namespace SShell
         // public NotificationButtons Buttons;
     }
 
-    class NotificationHandler
+    public class NotificationHandler
     {
         MainWindow mw;
 

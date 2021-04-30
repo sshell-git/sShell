@@ -110,6 +110,8 @@ namespace SShell
     }
     #endregion
 
+
+
     public partial class MainWindow : Window
     {
         #region more hWnd
@@ -133,7 +135,7 @@ namespace SShell
         static readonly IntPtr HWND_BOTTOM = new(1);
         #endregion
 
-        string DefaultLang = "en_US";
+        public static Classes.SettingsHandler Settings = new();
 
         #region more useless things
         public static void SendWpfWindowBack(object sender, EventArgs e)
@@ -142,7 +144,7 @@ namespace SShell
             var hWnd = new WindowInteropHelper(window).Handle;
             SetWindowPos(hWnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
         }
-        private readonly NotificationHandler notifHandler;
+        public NotificationHandler notifHandler;
         public bool MenuOpen = false;
         public Process currproc;
         #endregion
@@ -167,7 +169,7 @@ namespace SShell
                         _ => "th",
                     };
                 }
-                this.dateText.Text = now.ToString("MMMM dd") + GetDaySuffix(now.Day) + " " + now.ToString("hh:mm tt");
+                this.dateText.Text = now.ToString("MMMM dd") + GetDaySuffix(now.Day) + " — " + now.ToString("hh:mm tt");
             }, Dispatcher);
             #region Init
             Window w = new()
@@ -184,24 +186,28 @@ namespace SShell
             this.Owner = w; // Okay, this will result to disappear icon for main window.
             w.Hide(); // Hide helper window just in case
             #endregion
-            notifHandler.ShowNotification(new Notification() { Title = "Welcome!", Type = NotificationType.Default, Description = "Welcome to SShell, a simple WPF shell created for fun.\nSome programs may ask for admin privledges." });
+
         }
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            Classes.DesktopHelper helper = new();
-            helper.ShowDesktop();
-            foreach (Window win in Application.Current.Windows)
-            {
-                if (win.Tag != null)
-                {
-                    notifHandler.ShowNotification(new Notification() { Title = "Found a window!", Description = win.Tag.ToString(), Type = NotificationType.Default });
-                }
-                else
-                {
-                    notifHandler.ShowNotification(new Notification() { Title = "Found a window!", Description = win.Title, Type = NotificationType.Default });
-                }
-                // SendWpfWindowBack(win);
-            }
+            // foreach (string value in Localization.Language.en_US.Values)
+            // {
+            //     MessageBox.Show(value);
+            // }
+            // Classes.DesktopHelper helper = new();
+            // helper.ShowDesktop();
+            // foreach (Window win in Application.Current.Windows)
+            // {
+            //     if (win.Tag != null)
+            //     {
+            //         notifHandler.ShowNotification(new Notification() { Title = "Found a window!", Description = win.Tag.ToString(), Type = NotificationType.Default });
+            //     }
+            //     else
+            //     {
+            //         notifHandler.ShowNotification(new Notification() { Title = "Found a window!", Description = win.Title, Type = NotificationType.Default });
+            //     }
+            //     // SendWpfWindowBack(win);
+            // }
             // Below is causing a long delay, so it's commented out for now..
 
             //MenuApps.Children.Clear();
@@ -241,99 +247,38 @@ namespace SShell
             //    border.Child = wrap;
             //    MenuApps.Children.Add(border);
             //}
-            Process[] processlist = Process.GetProcesses();
-
-            foreach (Process process in processlist)
+            Classes.ProcessHelper ph = new();
+            ph.setMW(this);
+            if (ph.GetCurrentProcesses())
             {
-
-                if (!String.IsNullOrEmpty(process.MainWindowTitle) && process.ProcessName != "SShell")
-                {
-                    AutomationElement element = AutomationElement.FromHandle(process.MainWindowHandle);
-                    if (element != null && process.MainWindowHandle != IntPtr.Zero)
-                    {
-                        /* Let's recreate the following XAML in C#:
-                        <Border Margin="0,0,3,0" Width="46" Style="{DynamicResource TBitemPanelBdr}">
-                            <iconPacks:PackIconMaterialDesign HorizontalAlignment="Center" Kind="Menu" Height="25" Width="25" Margin="2,0,2,0" VerticalAlignment="Center" Padding="5" Foreground="White" />
-                        </Border>
-                         */
-                        try
-                        {
-                            string fullPath = process.MainModule.FileName;
-                            Border border = new()
-                            {
-                                Margin = new Thickness(0, 0, 3, 0),
-                                Width = 46,
-                                Style = this.FindResource("TBitemPanelBdr") as Style,
-                                ToolTip = process.MainWindowTitle + "\n" + process.ProcessName,
-                                Tag = process.Id,
-                                HorizontalAlignment = HorizontalAlignment.Center
-                            };
-                            border.PreviewMouseLeftButtonUp += new MouseButtonEventHandler(FocusWin);
-                            System.Windows.Controls.Image image = new()
-                            {
-                                Source = IconHandler.GetIcon(fullPath, false, false),
-                                VerticalAlignment = VerticalAlignment.Center,
-                                HorizontalAlignment = HorizontalAlignment.Center,
-                                Margin = new Thickness(0),
-                                Width = 25,
-                                Height = 25,
-                                Stretch = Stretch.Uniform
-                            };
-                            border.Child = image;
-                            TaskbarIcons.Children.Add(border);
-
+                // good
 #if DEBUG
-                            /*  MessageBox.Show(string.Format("Filename: {3}\nProcess: {0} \nID: {1} \nWindow title: {2}", process.ProcessName, process.Id, process.MainWindowTitle, fullPath)); */
+                MessageBox.Show("good");
 #endif
-                        }
-                        catch (Exception error)
-                        {
-                            //Border border = new()
-                            //{
-                            //    Margin = new Thickness(0, 0, 3, 0),
-                            //    Width = 46,
-                            //    Style = this.FindResource("TBitemPanelBdr") as Style,
-                            //    ToolTip = "Error",
-                            //    HorizontalAlignment = HorizontalAlignment.Left
-                            //};
-                            //PackIconMaterialDesign packIcon = new()
-                            //{
-                            //    HorizontalAlignment = HorizontalAlignment.Center,
-                            //    Kind = PackIconMaterialDesignKind.Error,
-                            //    Foreground = FindResource("bgDanger") as System.Windows.Media.Brush,
-                            //    Height = 25,
-                            //    Width = 25
-                            //};
-                            //border.Child = packIcon;
-                            //System.Windows.Controls.Image image = new()
-                            //{
-                            //    Source = new BitmapImage(new Uri(@"pack://application:,,,/Assets/icon.png")),
-                            //    VerticalAlignment = VerticalAlignment.Center,
-                            //    HorizontalAlignment = HorizontalAlignment.Center,
-                            //    Margin = new Thickness(0),
-                            //    Width = 25,
-                            //    Height = 25,
-                            //    Stretch = Stretch.Uniform
-                            //};
-                            //border.Child = image;
-                            //taskbar.Children.Add(border);
-                            Notification notif = new()
-                            {
-                                Title = "An error has occured!",
-                                Description = string.Format("Failed to get program {0}: {1}", process.ProcessName, error.Message),
-                                Type = NotificationType.Error
-                            };
-                            notifHandler.ShowNotification(notif);
+                notifHandler.ShowNotification(new Notification() { Title = "Welcome!", Type = NotificationType.Default, Description = "Welcome to SShell, a simple WPF shell created for fun.\nSome programs may ask for admin privledges." });
+            }
+            else
+            {
+                // bad
 #if DEBUG
-                            // MessageBox.Show(string.Format("Failed to get program {0} because the following error occured:\n{1}", process.ProcessName, error.Message));
+                MessageBox.Show("bad");
 #endif
-                        }
-                    }
-                }
+                notifHandler.ShowNotification(new Notification() { Title = "Error", Type = NotificationType.Error, Description = "Oops, an error occured. Please report this to the developers.." });
             }
         }
 
-
+        public bool AddTaskbarItem(Border itm)
+        {
+            try
+            {
+                TaskbarIcons.Children.Add(itm);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public void FocusWin(object sender, MouseEventArgs e)
         {
             Border bdr = sender as Border;
@@ -350,11 +295,11 @@ namespace SShell
                 notifHandler.ShowNotification(notif);
                 if (!String.IsNullOrEmpty(process.MainWindowTitle))
                 {
-                    // AutomationElement element = AutomationElement.FromHandle(process.MainWindowHandle);
-                    // if (element != null)
-                    // {
-                    //     element.SetFocus();
-                    // }
+                    /*x AutomationElement element = AutomationElement.FromHandle(process.MainWindowHandle);
+                    if (element != null)
+                    {
+                        element.SetFocus();
+                    } */
                     SetForegroundWindow(process.MainWindowHandle);
                 }
             }
@@ -363,7 +308,7 @@ namespace SShell
                 Notification notif = new()
                 {
                     Title = "An error has occured!",
-                    Description = string.Format("Failed to open {0}: {1}", process.ProcessName, error.Message),
+                    Description = string.Format("Failed to open the process: {0}", error.Message),
                     Type = NotificationType.Error
                 };
                 notifHandler.ShowNotification(notif);
@@ -416,6 +361,8 @@ namespace SShell
             MenuOpen = false;
         }
 
+        #region whdlrs / Window Handlers
+
         private void whdlrs_openSettings(object sender, MouseButtonEventArgs e)
         {
             Menu.Visibility = Visibility.Collapsed;
@@ -466,6 +413,15 @@ namespace SShell
             // await Task.Delay(3000);
             // screenshotCapturePopup.Visibility = Visibility.Collapsed;
         }
+
+        // clear notifications button
+
+        private void whdlrs_QAclearNotifs(object sender, MouseButtonEventArgs e)
+        {
+            qaStackParent.Children.Clear();
+        }
+
+        #endregion
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SShell.Classes
 {
-    class SettingsFile
+    public class SettingsFile
     {
         [JsonProperty("version")]
         public string Version { get; set; }
@@ -18,9 +18,11 @@ namespace SShell.Classes
         public KeyValuePair<string, Favorite> Favorites { get; set; }
         [JsonProperty("initSuccess")]
         public bool InitSuccess { get; private set; }
+        [JsonProperty("lang")]
+        public string Language { get; set; }
     }
 
-    class Favorite
+    public class Favorite
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -28,6 +30,11 @@ namespace SShell.Classes
         public string FolderPath { get; set; }
         [JsonProperty("category")]
         public Category Category { get; set; }
+    }
+
+    public class Theme
+    {
+
     }
 
     public enum Category
@@ -40,15 +47,17 @@ namespace SShell.Classes
         Misc
     }
 
-    class SettingsHandler
+    public class SettingsHandler
     {
         // define variables
         public string FolderPath { get; private set; }
         public SettingsFile CurrentSettingsFile { get; private set; }
         public double CurrentVersion { get; }
+        public string UseLang { get; set; }
         // init the variables
         public bool Initialize()
         {
+            UseLang = "en_US";
             // folderpath is always empty at the start
             if (string.IsNullOrEmpty(FolderPath))
             {
