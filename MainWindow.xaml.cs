@@ -29,7 +29,7 @@ namespace SShell
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    /// 
+
     #region Icon / hWnd
     public class IconHandler
     {
@@ -137,12 +137,17 @@ namespace SShell
 
         public static Classes.SettingsHandler Settings = new();
 
-        #region more useless things
+        #region more things
         public static void SendWpfWindowBack(object sender, EventArgs e)
         {
             Window window = sender as Window;
             var hWnd = new WindowInteropHelper(window).Handle;
             SetWindowPos(hWnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
+        }
+        public static void SendWpfWindowBackUsingObj(Window window)
+        {
+            var hWnd = new WindowInteropHelper(window).Handle;
+            SetWindowPos(hWnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
         }
         public NotificationHandler notifHandler;
         public bool MenuOpen = false;
@@ -194,8 +199,8 @@ namespace SShell
             // {
             //     MessageBox.Show(value);
             // }
-            // Classes.DesktopHelper helper = new();
-            // helper.ShowDesktop();
+            Classes.DesktopHelper helper = new();
+            helper.ShowDesktop();
             // foreach (Window win in Application.Current.Windows)
             // {
             //     if (win.Tag != null)
@@ -252,17 +257,17 @@ namespace SShell
             if (ph.GetCurrentProcesses())
             {
                 // good
-#if DEBUG
-                MessageBox.Show("good");
-#endif
+                // #if DEBUG
+                //                 MessageBox.Show("good");
+                // #endif
                 notifHandler.ShowNotification(new Notification() { Title = "Welcome!", Type = NotificationType.Default, Description = "Welcome to SShell, a simple WPF shell created for fun.\nSome programs may ask for admin privledges." });
             }
             else
             {
                 // bad
-#if DEBUG
-                MessageBox.Show("bad");
-#endif
+                // #if DEBUG
+                //                 MessageBox.Show("bad");
+                // #endif
                 notifHandler.ShowNotification(new Notification() { Title = "Error", Type = NotificationType.Error, Description = "Oops, an error occured. Please report this to the developers.." });
             }
         }
@@ -271,7 +276,7 @@ namespace SShell
         {
             try
             {
-                TaskbarIcons.Children.Add(itm);
+                TaskbarIcons.Items.Add(itm);
                 return true;
             }
             catch
@@ -295,12 +300,12 @@ namespace SShell
                 notifHandler.ShowNotification(notif);
                 if (!String.IsNullOrEmpty(process.MainWindowTitle))
                 {
-                    /*x AutomationElement element = AutomationElement.FromHandle(process.MainWindowHandle);
+                    AutomationElement element = AutomationElement.FromHandle(process.MainWindowHandle);
                     if (element != null)
                     {
                         element.SetFocus();
-                    } */
-                    SetForegroundWindow(process.MainWindowHandle);
+                    }
+                    // SetForegroundWindow(process.MainWindowHandle);
                 }
             }
             catch (Exception error)
@@ -319,15 +324,11 @@ namespace SShell
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
-
-            // Make entire window and everything in it "transparent" to the Mouse
             var windowHwnd = new WindowInteropHelper(this).Handle;
             WindowsServices.SetWindowExTransparent(windowHwnd);
-
-            // Make the button "visible" to the Mouse
-            var buttonHwndSource = (HwndSource)HwndSource.FromVisual(tb);
-            var buttonHwnd = buttonHwndSource.Handle;
-            WindowsServices.SetWindowExNotTransparent(buttonHwnd);
+            var tbHwndSource = (HwndSource)HwndSource.FromVisual(tb);
+            var tbHwnd = tbHwndSource.Handle;
+            WindowsServices.SetWindowExNotTransparent(tbHwnd);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

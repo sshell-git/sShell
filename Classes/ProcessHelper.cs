@@ -23,6 +23,7 @@ namespace SShell.Classes
 
         public bool GetCurrentProcesses()
         {
+            MessageBox.Show("getting proc!");
             string[] blacklist = { "TextInputHost", "SShell" };
             Process[] processlist = Process.GetProcesses();
             foreach (Process process in processlist)

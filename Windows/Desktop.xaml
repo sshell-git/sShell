@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:SShell.Windows"
         mc:Ignorable="d"
         Focusable="False"
-        Title="Desktop" Height="450" Width="800" Background="Black" ResizeMode="NoResize" ShowInTaskbar="False" WindowState="Normal" WindowStyle="None" Loaded="Window_Loaded" WindowStartupLocation="Manual">
+        Title="Desktop" Height="450" Width="800" Background="Black" ResizeMode="NoResize" ShowInTaskbar="False" WindowState="Normal" WindowStyle="None" Loaded="Window_Loaded" ContentRendered="Window_ContentRendered" WindowStartupLocation="Manual">
 
     <Grid x:Name="desktopGrid">
-        <TextBlock Text="I am the Desktop!" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
+        
     </Grid>
 </Window>

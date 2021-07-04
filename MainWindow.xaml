@@ -67,17 +67,16 @@
                             April 25th — 7:22 AM
                         </TextBlock>
                     </Border>
-                    <Canvas ClipToBounds="False" Visibility="Collapsed" Background="{DynamicResource BGAlt2}" Width="1">
-                        <C:BetterPopupMenu ArrowMargin="0,0,-26,0" ArrowAlignment="Right" DockPanel.Dock="Bottom" Padding="10" Margin="0,0,3,3" Background="{DynamicResource BGtranslucent}" Canvas.Left="-315" Canvas.Top="-342">
+                    <Canvas ToolTip="Show desktop" ClipToBounds="False" Visibility="Visible" Background="{DynamicResource BGAlt2}" Width="2">
+                        <!--<C:BetterPopupMenu ArrowMargin="0,0,-26,0" ArrowAlignment="Right" DockPanel.Dock="Bottom" Padding="10" Margin="0,0,3,3" Background="{DynamicResource BGtranslucent}" Canvas.Left="-315" Canvas.Top="-315">
                             <StackPanel>
-                                <TextBlock Margin="0,0,0,3" Text="April 25, 2021" FontSize="20" />
-                                <Calendar Padding="10" SelectionMode="SingleRange"  BorderBrush="{x:Null}" Style="{DynamicResource CalendarStyle1}">
+                                <TextBlock Visibility="Collapsed" Margin="0,0,0,3" Text="April 25, 2021" FontSize="20" />
+                                <Calendar Padding="10" Margin="0" SelectionMode="SingleRange" Background="{x:Null}" BorderBrush="{x:Null}">
 
                                 </Calendar>
                             </StackPanel>
-                        </C:BetterPopupMenu>
+                        </C:BetterPopupMenu>-->
                     </Canvas>
-
                     <Border Panel.ZIndex="30" HorizontalAlignment="Right" PreviewMouseLeftButtonUp="whdlrs_openQA" Padding="18.5,10,18.5,10" DockPanel.Dock="Right" Style="{DynamicResource TBitemPanelBdr}">
                         <DockPanel HorizontalAlignment="Right" VerticalAlignment="Center">
 
@@ -96,7 +95,33 @@
                     <iconPacks:PackIconMaterialDesign Foreground="{DynamicResource FG}" Kind="DesktopWindows" Width="16" Height="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
-                <WrapPanel HorizontalAlignment="Center" x:Name="TaskbarIcons">
+                <WrapPanel HorizontalAlignment="Center">
+                    <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Center"
+                             Padding="0" Margin="0" Height="40" x:Name="TaskbarIcons" BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}">
+                        <ListBox.Resources>
+                            <Style TargetType="ListBoxItem">
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+                                </Style.Resources>
+                            </Style>
+                        </ListBox.Resources>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Padding" Value="0" />
+                                <Setter Property="Margin" Value="0" />
+                                <Setter Property="Height" Value="40" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+
+
+                    </ListBox>
                     <!-- Icons here will be added dynamically when the application runs. -->
 
                     <!--<Canvas>
@@ -156,50 +181,17 @@
 
                             <Border Style="{DynamicResource TBitemPanelBdr}">
                                 <WrapPanel Style="{DynamicResource TBitemPanel}">
-                                    <Image Style="{DynamicResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png"  />
-                                    <TextBlock Style="{DynamicResource TBitemText}" Text="Firefox" />
+                                    <iconPacks:PackIconMaterialDesign Margin="8,0,0,0" Kind="Folder" Height="30" Width="30" Foreground="{DynamicResource FG}" />
+                                    <Border CornerRadius="5" Margin="8,0,0,0" Height="15" Padding="5,0,5,0" Background="{DynamicResource bgPrimary}">
+                                        <TextBlock Foreground="{DynamicResource FG}"  Text="NEW" VerticalAlignment="Center" />
+                                    </Border>
+                                    <TextBlock Style="{DynamicResource TBitemText}" Text="sStore" />
                                 </WrapPanel>
                             </Border>
                             <Border Style="{DynamicResource TBitemPanelBdr}">
                                 <WrapPanel Style="{DynamicResource TBitemPanel}">
-                                    <Image Style="{DynamicResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png" />
-                                    <TextBlock Style="{DynamicResource TBitemText}" Text="Firefox" />
-                                </WrapPanel>
-                            </Border>
-                            <Border Style="{DynamicResource TBitemPanelBdr}">
-                                <WrapPanel Style="{DynamicResource TBitemPanel}">
-                                    <Image Style="{DynamicResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png" />
-                                    <TextBlock Style="{DynamicResource TBitemText}"  Text="Firefox" />
-                                </WrapPanel>
-                            </Border>
-                            <Border Style="{DynamicResource TBitemPanelBdr}">
-                                <WrapPanel Style="{DynamicResource TBitemPanel}">
-                                    <Image Style="{DynamicResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png" />
-                                    <TextBlock Style="{DynamicResource TBitemText}"  Text="Firefox" />
-                                </WrapPanel>
-                            </Border>
-                            <Border Style="{DynamicResource TBitemPanelBdr}">
-                                <WrapPanel Style="{DynamicResource TBitemPanel}">
-                                    <Image Style="{DynamicResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png" />
-                                    <TextBlock Style="{DynamicResource TBitemText}"  Text="Firefox" />
-                                </WrapPanel>
-                            </Border>
-                            <Border Style="{DynamicResource TBitemPanelBdr}">
-                                <WrapPanel Style="{DynamicResource TBitemPanel}">
-                                    <Image Style="{DynamicResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png" />
-                                    <TextBlock Style="{DynamicResource TBitemText}"  Text="Firefox" />
-                                </WrapPanel>
-                            </Border>
-                            <Border Style="{DynamicResource TBitemPanelBdr}">
-                                <WrapPanel Style="{DynamicResource TBitemPanel}">
-                                    <Image Style="{DynamicResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png" />
-                                    <TextBlock Style="{DynamicResource TBitemText}"  Text="Firefox" />
-                                </WrapPanel>
-                            </Border>
-                            <Border Style="{DynamicResource TBitemPanelBdr}">
-                                <WrapPanel Style="{DynamicResource TBitemPanel}">
-                                    <Image Style="{DynamicResource TBitemIcon}" Source="https://cdn.discordapp.com/attachments/767080494269333504/835050490936557568/about-logo2x.png" />
-                                    <TextBlock Style="{DynamicResource TBitemText}"  Text="Firefox" />
+                                    <iconPacks:PackIconMaterialDesign Margin="8,0,0,0" Kind="Settings" Height="30" Width="30" Foreground="{DynamicResource FG}" />
+                                    <TextBlock Style="{DynamicResource TBitemText}" Text="sSettings" />
                                 </WrapPanel>
                             </Border>
                             <!-- #endregion -->
@@ -208,7 +200,7 @@
                 </DockPanel>
             </Border>
             <DockPanel Visibility="Visible" DockPanel.Dock="Right" HorizontalAlignment="Right">
-                <C:BetterPopupMenu Visibility="Visible" ArrowMargin="0,0,-26,0" ArrowAlignment="Right" DockPanel.Dock="Bottom" x:Name="QuickActions" Padding="10" Margin="0,0,3,3" Background="{DynamicResource BGtranslucent}">
+                <C:BetterPopupMenu Visibility="Collapsed" ArrowMargin="0,0,-26,0" ArrowAlignment="Right" DockPanel.Dock="Bottom" x:Name="QuickActions" Padding="10" Margin="0,0,3,3" Background="{DynamicResource BGtranslucent}">
                     <StackPanel>
                         <ScrollViewer BorderBrush="{x:Null}" Background="{x:Null}">
                             <DockPanel HorizontalAlignment="Stretch">
@@ -230,9 +222,10 @@
                         </C:Button>
                     </StackPanel>
                 </C:BetterPopupMenu>
-                <StackPanel DockPanel.Dock="Bottom" x:Name="notifBox" HorizontalAlignment="Right" Margin="0,0,3,3" VerticalAlignment="Bottom" Background="{x:Null}">
-                    <!-- Notifications will go here -->
-                    <!-- Default notification example — more in NotificationHandler.cs
+                <ScrollViewer>
+                    <StackPanel DockPanel.Dock="Bottom" x:Name="notifBox" HorizontalAlignment="Right" Margin="0,0,3,3" VerticalAlignment="Bottom" Background="{x:Null}">
+                        <!-- Notifications will go here -->
+                        <!-- Default notification example — more in NotificationHandler.cs
                     <Border HorizontalAlignment="Right" Style="{DynamicResource Notification}" Margin="0,3,0,0" Width="275" Background="{DynamicResource bgPrimary}" Padding="20" CornerRadius="3">
                         <DockPanel>
                             <iconPacks:PackIconMaterialDesign VerticalAlignment="Center" Kind="Notifications" Foreground="White" Width="30" Height="30" HorizontalAlignment="Left" />
@@ -242,7 +235,8 @@
                             </StackPanel>
                         </DockPanel>
                     </Border> -->
-                </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
             </DockPanel>
         </DockPanel>
     </Grid>

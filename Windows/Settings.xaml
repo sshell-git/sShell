@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SShell.Windows"
         xmlns:Controls="clr-namespace:SShell.Controls"
+        xmlns:Settings="clr-namespace:SShell.Controls.Settings"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Settings" Height="600" Width="800" Background="{DynamicResource BGAlt}" Loaded="Window_Loaded">
@@ -14,12 +15,17 @@
             <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
         <GridSplitter Width="3" Background="{DynamicResource BGtranslucent}"/>
-        <TreeView BorderThickness="0" x:Name="TreeView" Background="{DynamicResource BGtranslucent}">
+        <StackPanel Background="{DynamicResource BGtranslucent}">
+            <Settings:SettingsSidebarButton />
+            <Settings:SettingsSidebarButton />
+            <Settings:SettingsSidebarButton />
+        </StackPanel>
+        <!--<TreeView BorderThickness="0" x:Name="TreeView" Background="{DynamicResource BGtranslucent}">
             <TreeViewItem Tag="General" Selected="SelectItem" Padding="10,5,10,5" Header="General" Foreground="{DynamicResource FG}" />
             <TreeViewItem IsExpanded="True" Padding="10,5,10,5" Header="Personalization" Foreground="{DynamicResource FG}">
                 <TreeViewItem Tag="Personalization/Theming" Selected="SelectItem" Padding="10,5,10,5" Header="Theming" Foreground="{DynamicResource FG}" />
             </TreeViewItem>
-        </TreeView>
+        </TreeView>-->
         <DockPanel Grid.Column="1">
             <StackPanel HorizontalAlignment="Right" Margin="5" VerticalAlignment="Bottom" Orientation="Horizontal" DockPanel.Dock="Bottom">
                 <Controls:Button Width="50" Margin="0,0,5,0" >

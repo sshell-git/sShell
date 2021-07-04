@@ -35,7 +35,7 @@ namespace SShell.Localization
             { "SShell_Error", "Error" },
             { "SShell_Error_GenericMessage", "An error has occured: {0}" },
             { "SShell_Error_ProcessFailure", "An error occured while trying to hook into process {0}: {1}" }
-#endregion
+            #endregion
         };
 
         public static Dictionary<string, string> fr_FR = new()
