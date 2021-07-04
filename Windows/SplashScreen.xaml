@@ -1,0 +1,25 @@
+﻿<Window x:Class="SShell.Windows.SplashScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SShell.Windows"
+        mc:Ignorable="d"
+        Foreground="{DynamicResource FG}"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        Title="sShell — Loading..." AllowsTransparency="True" Height="75" Width="250" WindowStartupLocation="CenterScreen" WindowStyle="None" WindowState="Normal" ContentRendered="Window_ContentRendered">
+    <Grid>
+        <Border Margin="0" BorderThickness="1" BorderBrush="{DynamicResource BGAlt2}" CornerRadius="8" Background="{DynamicResource BG}">
+            <DockPanel LastChildFill="True">
+                <Border VerticalAlignment="Center" Padding="5 5">
+                    <StackPanel>
+                        <TextBlock x:Name="LoadingText" TextAlignment="Center" Text="Loading, please wait."/>
+                        <ProgressBar x:Name="LoadingBar" Minimum="0" Value="0" Maximum="100" Height="12" Margin="0,5,0,5" />
+                        <Button Visibility="Collapsed" Click="ForceLoad" FontSize="10">Splash screen not finished, click here to keep loading</Button>
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+        </Border>
+    </Grid>
+</Window>
