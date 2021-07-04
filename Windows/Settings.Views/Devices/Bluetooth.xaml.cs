@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SShell.Windows.Settings.Views.Devices
+namespace sShell.Windows.Settings.Views.Devices
 {
     /// <summary>
     /// Interaction logic for Bluetooth.xaml

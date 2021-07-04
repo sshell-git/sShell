@@ -24,7 +24,7 @@ using System.Windows.Navigation;
 using System.Windows.Automation;
 using System.Windows.Shapes;
 #endregion
-namespace SShell
+namespace sShell
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -260,7 +260,7 @@ namespace SShell
                 // #if DEBUG
                 //                 MessageBox.Show("good");
                 // #endif
-                notifHandler.ShowNotification(new Notification() { Title = "Welcome!", Type = NotificationType.Default, Description = "Welcome to SShell, a simple WPF shell created for fun.\nSome programs may ask for admin privledges." });
+                notifHandler.ShowNotification(new Notification() { Title = "Welcome!", Type = NotificationType.Default, Description = "Welcome to sShell, a simple WPF shell created for fun.\nSome programs may ask for admin privledges." });
             }
             else
             {

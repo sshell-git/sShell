@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SShell.Controls.Settings
+namespace sShell.Controls.Settings
 {
     /// <summary>
     /// Interaction logic for SettingsSidebarButton.xaml

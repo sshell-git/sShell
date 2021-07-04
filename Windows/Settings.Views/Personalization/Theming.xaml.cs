@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SShell.Windows.Settings.Views.Misc
+namespace sShell.Windows.Settings.Views.Misc
 {
     /// <summary>
     /// Interaction logic for Theme.xaml

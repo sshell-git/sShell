@@ -7,14 +7,14 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>sshell.ico</ApplicationIcon>
     <Version>0.0.0.25</Version>
-    <Product>SShell Beta</Product>
+    <Product>sShell Beta</Product>
     <Authors>Kat21</Authors>
     <Copyright>2021 Kat21</Copyright>
     <PackageIcon></PackageIcon>
-    <RepositoryUrl>https://github.com/datkat21/SShell</RepositoryUrl>
+    <RepositoryUrl>https://github.com/datkat21/sShell</RepositoryUrl>
     <RepositoryType>master</RepositoryType>
-    <PackageReleaseNotes>This is a BETA version of SShell.</PackageReleaseNotes>
-    <PackageTags>SShell, Beta, WPF</PackageTags>
+    <PackageReleaseNotes>This is a BETA version of sShell.</PackageReleaseNotes>
+    <PackageTags>sShell, Beta, WPF</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -39,12 +39,6 @@
     <PackageReference Include="MahApps.Metro.IconPacks.MaterialDesign" Version="4.8.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.Windows.Forms.VisualStudio.15.0">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\System.Windows.Forms.VisualStudio.15.0.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>

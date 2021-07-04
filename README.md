@@ -1,4 +1,4 @@
-# SShell
+# sShell
 A simple shell made in WPF.
 
 ## Information!!

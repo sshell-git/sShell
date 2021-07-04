@@ -17,7 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SShell.Windows
+namespace sShell.Windows
 {
     /// <summary>
     /// Interaction logic for SplashScreen.xaml
@@ -50,7 +50,7 @@ namespace SShell.Windows
                 CacheInfo cache = new();
                 // comment below line for error testing
                 cache.CachedItems = new List<CachedAsset>();
-                var Path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\SShell\Cache";
+                var Path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\sShell\Cache";
                 if (Directory.Exists(Path))
                 {
 #if DEBUG
@@ -121,8 +121,8 @@ namespace SShell.Windows
             catch (Exception err)
             {
                 MessageBoxResult result = MessageBox.Show(
-                    string.Format("Something went wrong!\n{0}\n{1}\nPress YES if you would like to send this error to the developers and help us improve SShell, otherwise press NO.", err.Message, err.StackTrace),
-                    "SShell — Error",
+                    string.Format("Something went wrong!\n{0}\n{1}\nPress YES if you would like to send this error to the developers and help us improve sShell, otherwise press NO.", err.Message, err.StackTrace),
+                    "sShell — Error",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Error);
                 if (result == MessageBoxResult.Yes)

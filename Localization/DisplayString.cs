@@ -28,7 +28,7 @@ using System.Threading.Tasks;
 
 // yes i know i kind of stole this from cairo shell but there was no better way to do this
 
-namespace SShell.Localization
+namespace sShell.Localization
 {
     public class DisplayString
     {

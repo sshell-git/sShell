@@ -1,15 +1,15 @@
-﻿<Window x:Class="SShell.MainWindow"
+﻿<Window x:Class="sShell.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SShell"
+        xmlns:local="clr-namespace:sShell"
         Icon="pack://application:,,,/Assets/icon.png"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        xmlns:C="clr-namespace:SShell.Controls"
+        xmlns:C="clr-namespace:sShell.Controls"
          FontFamily="{DynamicResource CurrentFont}"
         mc:Ignorable="d"
-        Title="SShell" Height="1440" Width="2560" WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize" ContentRendered="Window_ContentRendered" AllowsTransparency="True" Loaded="Window_Loaded" Background="{x:Null}" Topmost="True" Activated="Window_Activated" Visibility="Visible" Deactivated="Window_Deactivated" ShowInTaskbar="False" Closing="Window_Closing">
+        Title="sShell" Height="1440" Width="2560" WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize" ContentRendered="Window_ContentRendered" AllowsTransparency="True" Loaded="Window_Loaded" Background="{x:Null}" Topmost="True" Activated="Window_Activated" Visibility="Visible" Deactivated="Window_Deactivated" ShowInTaskbar="False" Closing="Window_Closing">
     <Window.Resources>
 
     </Window.Resources>

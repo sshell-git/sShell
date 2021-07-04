@@ -10,7 +10,7 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Automation;
 
-namespace SShell.Classes
+namespace sShell.Classes
 {
     class ProcessHelper
     {
@@ -24,7 +24,7 @@ namespace SShell.Classes
         public bool GetCurrentProcesses()
         {
             MessageBox.Show("getting proc!");
-            string[] blacklist = { "TextInputHost", "SShell" };
+            string[] blacklist = { "TextInputHost", "sShell" };
             Process[] processlist = Process.GetProcesses();
             foreach (Process process in processlist)
             {

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SShell.Windows.Settings.Views
+namespace sShell.Windows.Settings.Views
 {
     /// <summary>
     /// Interaction logic for General.xaml

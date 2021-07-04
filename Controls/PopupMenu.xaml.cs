@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SShell.Controls
+namespace sShell.Controls
 {
     /// <summary>
     /// Interaction logic for PopupMenu.xaml

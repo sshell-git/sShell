@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SShell.Classes
+namespace sShell.Classes
 {
     public class SettingsFile
     {
@@ -61,8 +61,8 @@ namespace SShell.Classes
             // folderpath is always empty at the start
             if (string.IsNullOrEmpty(FolderPath))
             {
-                // init folderpath with the correct path (e.g. %AppData%\SShell\)
-                FolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"SShell");
+                // init folderpath with the correct path (e.g. %AppData%\sShell\)
+                FolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"sShell");
             }
             // trycatch since there may be errors
             try

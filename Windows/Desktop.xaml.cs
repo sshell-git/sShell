@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SShell.Windows
+namespace sShell.Windows
 {
     /// <summary>
     /// Interaction logic for Desktop.xaml

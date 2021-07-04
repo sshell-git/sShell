@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 
-namespace SShell
+namespace sShell
 {
     /// <summary>
     /// Interaction logic for App.xaml

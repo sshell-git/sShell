@@ -19,7 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Automation;
 using System.Windows.Shapes;
 
-namespace SShell
+namespace sShell
 {
     public enum NotificationType : byte
     {
